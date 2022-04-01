@@ -7,7 +7,8 @@ import DataBase from './database/DataBase';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 
 function App() {
-  
+  const [curUser, setcurUser] = useState("");
+
 
 
 return (
@@ -21,17 +22,14 @@ return (
   //   )}
 
   // </div>
-
  
   <Router>
     <Routes>
-      <Route path='/' element={<LoginForm/>}/>
+      <Route path='/' element={<LoginForm user={setcurUser}/>}/>
       <Route path='/register' element={<RegisterForm/>}/>
-      <Route path='/main' element={<MainPage/>}/>
+      <Route path='/main' element={<MainPage curUser={curUser}/>}/>
     </Routes>
   </Router>
-
-
 
 
 );

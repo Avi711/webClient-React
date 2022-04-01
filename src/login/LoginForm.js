@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import tempUsers from '../database/DataBase';
 
-function LoginForm({}) {
+function LoginForm(props) {
 
     const [details, setDetails] = useState({ username: "", password: "" });
     const [error, setError] = useState("");
@@ -16,6 +16,7 @@ function LoginForm({}) {
         }
         for (let i of tempUsers) {
           if (details.username == i.username && details.password == i.password) {
+            props.user(details.username)
             setError("no");
             navigate("/main");
             return;
