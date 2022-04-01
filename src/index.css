@@ -63,34 +63,32 @@ body {
     background-color: rgb(245, 245, 245);
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     border-radius: 0.5cm;
-    margin-bottom: 10rem;
     width: 100rem;
     height: 55rem;
     margin-top: -150px;
-    overflow: hidden;
 }
 
 
 .one{
-    background-color:'#f0f2f5';
+    background-color:#F1F1F1;
     height: 5rem;
+    border-top-left-radius: 1rem;
     
 }
 .two{
-    background-color:'#f0f2f5';
-    
+    background-color:#F1F1F1;
+    border-top-right-radius: 1rem;
 }
 .three{
     background-color: white;
     height: 50rem;
     border: 1px solid '#f0f2f5';
+    border-bottom-left-radius: 1rem;
 }
 .four{
-
-  background-color: white;
-
-
-
+    background-color: white;
+    border: 1px solid '#f0f2f5';
+    border-bottom-right-radius: 1rem;
     
     
 }
@@ -101,14 +99,6 @@ ul {
 }
 
 
-
-
-
-
-
-
-
-   
 .back-top{
  background-color:  #009688;
  height: 15vh;
@@ -149,7 +139,7 @@ ul {
  border: 1px solid black;
 }
 .user-image{
-    margin-right: 35px;
+    margin-right: 30px;
     margin-left: 8px;
     margin-top: 22px;
     height: 40px;
@@ -180,7 +170,9 @@ ul {
 }
 
 .message-box{
- background-color: #F0F0F0;
+margin-top: 97.7%;
+ background-color: #F1F1F1;
+ border-bottom-right-radius: 1rem 
 }
 
 .time{
@@ -190,9 +182,33 @@ ul {
     width :5rem;
 }
 .UserName-title{
-  position: absolute;
-  padding-left: 0.4rem;
-  padding-top: 1.7rem;
-  text-align: center;
-  vertical-align: middle;
+    padding-left: 0.4rem;
+    position: absolute;
+    padding-top: 1.7rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .add-chat-button{
+    float: right;
+    margin-top : 1.5rem;
+    margin-right: 0.5rem;
+
+  }
+
+  .add-chat-button:hover {
+    background-color: #009688;
+}
+
+  .button-solid {
+    border: none;
+}
+
+button-solid:focus {
+    border: none;
+    outline: none;
+    width: 20px;
+    height: 20px;
+}
+.form-control{
+    width: 100%;
 }
