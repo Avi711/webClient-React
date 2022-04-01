@@ -189,9 +189,8 @@ margin-top: 97.7%;
     vertical-align: middle;
   }
   .add-chat-button{
-    float: right;
-    margin-top : 1.5rem;
-    margin-right: 0.5rem;
+      color: black;
+      background-color: #009688;
 
   }
 
@@ -212,3 +211,12 @@ button-solid:focus {
 .form-control{
     width: 100%;
 }
+
+.add-button2 {
+    position: relative;
+    margin-right: 1rem;
+    margin-top: 1.3rem;
+    float: right;
+}
+
+
