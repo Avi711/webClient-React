@@ -1,0 +1,198 @@
+body {
+    background-color: rgb(228, 228, 228);
+    background-image: url("https://res.cloudinary.com/practicaldev/image/fetch/s--WAKqnINn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/tw0nawnvo0zpgm5nx4fp.png");
+    font-family: Arial;
+}
+
+.background{
+    background-color: rgb(18, 140, 126);
+    height: 20rem;
+    margin: -40;
+}
+
+
+.my_form {
+    background-color: rgb(245, 245, 245);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border-radius: 0.5cm;
+    width: 200px;
+    padding: 2rem;
+    width: 700px;
+    margin-top: -150px;
+}
+
+.center {
+    position: relative;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+.margin_left {
+    margin-left: 15rem;
+}
+
+
+.webButton {
+    background-color: rgb(18, 140, 126);
+    color: white;
+}
+.webButton:hover {
+    background-color: rgb(73, 200, 88);
+    color: white;
+}
+
+.title {
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    font-family: Arial;
+    padding-bottom: 2rem;
+}
+
+.logo {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 13%;
+}
+
+.main_box {
+    background-color: rgb(245, 245, 245);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border-radius: 0.5cm;
+    margin-bottom: 10rem;
+    width: 100rem;
+    height: 55rem;
+    margin-top: -150px;
+    overflow: hidden;
+}
+
+
+.one{
+    background-color:'#f0f2f5';
+    height: 5rem;
+    
+}
+.two{
+    background-color:'#f0f2f5';
+    
+}
+.three{
+    background-color: white;
+    height: 50rem;
+    border: 1px solid '#f0f2f5';
+}
+.four{
+
+  background-color: white;
+
+
+
+    
+    
+}
+
+ul {
+    overflow-y: scroll;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+   
+.back-top{
+ background-color:  #009688;
+ height: 15vh;
+}
+
+.back-main{
+ background-color:  #D9DBD5;
+ height: 85vh;
+}
+
+.back-container{
+ position: relative;
+}
+
+.front-container{
+ position: absolute;
+ top:0;
+ left:0;
+ right: 0;
+}
+.front-container1{
+ position: absolute;
+ top:20px;
+ left:0;
+ right: 0;
+}
+
+.chat-top{
+ background-color: #EDEDED;
+ min-height: 50px;
+}
+
+.profile-image{
+
+ margin-top: 7px;
+ height: 40px;
+ width: 40px;
+ border: 1px solid black;
+}
+.user-image{
+    margin-right: 35px;
+    margin-left: 8px;
+    margin-top: 22px;
+    height: 40px;
+    width: 40px;
+    border: 1px solid black;
+}
+.contacts{
+ background-color: #ffffff;
+ min-height: 600px;
+}
+
+.contact-table-scroll{
+
+ overflow-y: auto;
+ height: 600px;
+ 
+ 
+}
+
+.message-area{
+ background-color:  #e4e1de;
+ min-height: 600px;
+}
+
+.message-table-scroll{
+ overflow-y: scroll;
+ height: 550px;
+}
+
+.message-box{
+ background-color: #F0F0F0;
+}
+
+.time{
+    text-align :right ;
+}
+.contact-photo-width{
+    width :5rem;
+}
+.UserName-title{
+  position: absolute;
+  padding-left: 0.4rem;
+  padding-top: 1.7rem;
+  text-align: center;
+  vertical-align: middle;
+}
