@@ -29,7 +29,7 @@ function RegisterForm() {
             password: details.password,
             displayname: details.displayname,
           }
-        tempUsers.push(obj);
+        tempUsers.push(obj); 
     };
 
 
