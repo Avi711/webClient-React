@@ -1,4 +1,5 @@
 import React from 'react'
+import Contact from './Contact'
 
 function MainPage(props) {
   return (
@@ -46,7 +47,7 @@ function MainPage(props) {
 
 
 
-            <span className="UserName-title"><b>User Name</b></span>
+            <span className="UserName-title"><b>{props.curUser}</b></span>
 
 
 
@@ -57,31 +58,8 @@ function MainPage(props) {
             <div className="contact-table-scroll">
               <table className="table table-hover">
                 <tbody>
-                  <tr>
-                    <td className="contact-photo-width"><img src="NicePng_watsapp-icon-png_9332131.png" alt="" className="profile-image rounded-circle " /></td>
-                    <td><b>Rahul Kumar </b><br /> <small>achi chal rahi</small></td>
-                    <td className="time"><small>11:55 PM</small></td>
-                  </tr>
-                  <tr>
-                    <td className="contact-photo-width"><img src="NicePng_watsapp-icon-png_9332131.png" alt="" className="profile-image rounded-circle" /></td>
-                    <td><b>Jack </b><br /> <small>Bye tata</small></td>
-                    <td className="time"><small>10:09 PM</small></td>
-                  </tr>
-                  <tr>
-                    <td className="contact-photo-width"><img src="NicePng_watsapp-icon-png_9332131.png" alt="" className="profile-image rounded-circle" /></td>
-                    <td><b>Bullywood Mafia</b> <br /> <small>Drg Drg Drg</small></td>
-                    <td className="time"><small>Monday</small></td>
-                  </tr>
-                  <tr>
-                    <td className="contact-photo-width"><img src="NicePng_watsapp-icon-png_9332131.png" alt="" className="profile-image rounded-circle" /></td>
-                    <td><b>Sumit Jha</b><br /> <small>Corona ho gaya kya</small></td>
-                    <td className="time"><small>9/22/20</small></td>
-                  </tr>
-                  <tr>
-                    <td className="contact-photo-width"><img src="NicePng_watsapp-icon-png_9332131.png" alt="" className="profile-image rounded-circle" /></td>
-                    <td><b>News Channel</b> <br /> <small>Bekar news only</small></td>
-                    <td className="time"><small>Sunday</small></td>
-                  </tr>
+                  <Contact contactName="sudri" contactMessage="Hiiiiiii" time="12:00"  />
+
                 </tbody>
               </table>
             </div>
