@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react';
 import Contact from './Contact'
 
 function MainPage(props) {
+ 
+  const contacts = [{ contactName: 'kehat', contactMessage: 'hello', time: '12:12' },
+  { contactName: 'avi', contactMessage: 'whats up ?', time: '13:09' },
+  { contactName: 'rodin', contactMessage: 'hi bro', time: '14:12' }];
+
+  const contactsList = contacts.map((contact, key) => { return <Contact {...contact} key={key} /> });
+
   return (
     <>
       <div class="row background">
@@ -54,15 +61,12 @@ function MainPage(props) {
           </div>
           <div className="col-7 two">Column2 </div>
           <div className="col-5 three">
-            {/*contact table*/}
-            <div className="contact-table-scroll">
-              <table className="table table-hover">
-                <tbody>
-                  <Contact contactName="sudri" contactMessage="Hiiiiiii" time="12:00"  />
-
-                </tbody>
-              </table>
-            </div>
+            {/*contact table*/} 
+            <table>
+            <div className="contact-table-scroll ">
+                {contactsList}
+              
+            </div></table>
           </div>
           <div className="col-7 four">
             <div className="row message-box p-3">
