@@ -132,19 +132,21 @@ ul {
 }
 
 .profile-image{
-
- margin-top: 7px;
- height: 40px;
- width: 40px;
- border: 1px solid black;
+    vertical-align: middle;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    
 }
 .user-image{
-    margin-right: 30px;
-    margin-left: 8px;
-    margin-top: 22px;
-    height: 40px;
-    width: 40px;
-    border: 1px solid black;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    vertical-align: middle;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
 }
 .contacts{
  background-color: #ffffff;
@@ -184,18 +186,22 @@ margin-top: 97.7%;
 .UserName-title{
     padding-left: 0.4rem;
     position: absolute;
-    padding-top: 1.7rem;
+    padding-top: 2rem;
     text-align: center;
-    vertical-align: middle;
+    vertical-align: middle
   }
   .add-chat-button{
       color: black;
       background-color: #009688;
+      border-radius: 0.6rem;
+      position: relative;
+    margin-top: 1.3rem;
+    float: right;
 
   }
 
   .add-chat-button:hover {
-    background-color: #009688;
+    background-color: rgb(73, 200, 88);
 }
 
   .button-solid {
@@ -212,11 +218,6 @@ button-solid:focus {
     width: 100%;
 }
 
-.add-button2 {
-    position: relative;
-    margin-right: 1rem;
-    margin-top: 1.3rem;
-    float: right;
-}
+
 
 

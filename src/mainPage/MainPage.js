@@ -1,19 +1,34 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Contact from './Contact'
+import Contacts from '../database/Contacts';
+import AddingContact from './AddingContact';
 
 function MainPage(props) {
+
+  let obj = Contacts.find(o => o.username == props.curUser);
+
+  const [inputText, setInputText] = useState("");
+
+
+  const contactsList = obj.userContacts.map((contact, key) => { return <Contact {...contact} key={key} /> });
+
+
+
+
+
+
   return (
     <>
-      <div class="row background">
-        <div class="logo "><img src="e98bf552a7aa412d8db10a55a3416a4d-removebg-preview.png"></img></div>
+      <div className="row background">
+        <div className="logo "><img src="e98bf552a7aa412d8db10a55a3416a4d-removebg-preview.png"></img></div>
 
       </div>
 
       <div className="container-lg main_box">
         <div className="row row-cols-2">
-          <div className="col-5 one"><img src="NicePng_watsapp-icon-png_9332131.png" alt="" className="user-image rounded-circle " />
+          <div className="col-5 one"><img src="profile2.png" alt="" className="user-image" />
           {/* Button trigger modal */}
-        <span className = "add-button2">
+        <span>
         <button type="button" className="btn button-solid add-chat-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} fill="currentColor" className="bi bi-person-plus" viewBox="0 0 16 16">
               <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
@@ -22,28 +37,8 @@ function MainPage(props) {
         </button>
         </span>
         {/* Modal */}
-        <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Adding new friend</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="mb-3">
-                  <label htmlFor="recipient-name" className="col-form-label">Username:</label>
-                  <input type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-success">Send message</button>
-            </div>
-          </div>
-        </div>
-      </div>
+        <AddingContact curUser={props.curUser} setInputText={setInputText}/>
+                
 
 
 
@@ -58,7 +53,7 @@ function MainPage(props) {
             <div className="contact-table-scroll">
               <table className="table table-hover">
                 <tbody>
-                  <Contact contactName="sudri" contactMessage="Hiiiiiii" time="12:00"  />
+                  {contactsList}
 
                 </tbody>
               </table>
