@@ -8,7 +8,7 @@ const Contacts = [
     {
       username: "dan711",
       userContacts: [{ contactName: 'sudri', contactMessage: 'hello there', time: '15:12', image : "profile3.png" },
-      { contactName: 'shirin', contactMessage: 'whats up ?', time: '13:09', image : "profile.png5" },
+      { contactName: 'shirin', contactMessage: 'whats up ?', time: '13:09', image : "profile5.png" },
       { contactName: 'tal', contactMessage: 'hi bro ehat ap', time: '14:12', image : "profile6.png" }]
     }
   ]
