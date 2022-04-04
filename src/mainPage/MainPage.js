@@ -9,14 +9,21 @@ function MainPage(props) {
 
   const [inputText, setInputText] = useState("");
   const [List, setList] = useState(obj.userContacts)
+  const [isSearch, setIsSearch] = useState(0);
 
   const searchBox = useRef(null);
 
   const contactsList = List.map((contact, key) => { return <Contact {...contact} key={key} /> });
 
-  const search = function() {
+  const search = function () {
     setList(obj.userContacts.filter((contact) => contact.contactName.includes(searchBox.current.value)));
 
+  }
+
+  const searchBar = function () {
+    (!isSearch ? document.getElementById("search-button").style.backgroundColor='rgb(' + [73,200,88].join(',') + ')' : document.getElementById("search-button").style.backgroundColor = '');
+    //document.getElementById("search-button").style.backgroundColor=''
+    setIsSearch(!isSearch)
   }
 
   return (
@@ -31,6 +38,9 @@ function MainPage(props) {
           <div className="col-5 one"><img src="profile2.png" alt="" className="user-image" />
             <span className="UserName-title"><b>{props.curUser}</b></span>
 
+
+
+
             {/* Button trigger modal */}
             <span>
               <button type="button" className="btn button-solid add-chat-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -40,7 +50,9 @@ function MainPage(props) {
                 </svg>
               </button>
             </span>
-
+            <span className='btn add-chat-button' id='search-button' onClick={searchBar}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg></span>
 
 
             {/* Modal */}
@@ -52,16 +64,19 @@ function MainPage(props) {
           <div className="col-7 two">Column2 </div>
           <div className="col-5 three">
             {/*contact table*/}
-            <div className="contact-table-scroll">
+            <div className="contact-table-scroll contact-table1">
 
 
 
-              <span className='search-contact'>
-                <form>
-                  <input type="text" className="form-control" placeholder="Search..." ref={searchBox} onKeyUp={search} />
-                </form>
-              </span>
-              <hr class="solid"></hr>
+
+              {(isSearch) ? (<>
+                <span className='search-contact'>
+                  <form>
+                    <input type="text" className="form-control" placeholder="Search..." ref={searchBox} onKeyUp={search} />
+                  </form>
+                </span>
+                <hr class="solid"></hr>
+              </>) : ""}
 
               <table className="table table-hover">
                 <tbody>
@@ -83,7 +98,7 @@ function MainPage(props) {
                 </form>
               </span>
               <span className="col-sm-2 mt-1" style={{ width: '1rem' }}>
-                <button className="button-solid"><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
+                <button className="button-solid" id='search-button'><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
                   <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
                 </svg></button>
               </span>
