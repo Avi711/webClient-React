@@ -4,7 +4,7 @@ body {
     font-family: Arial;
 }
 
-.background{
+.background {
     background-color: rgb(18, 140, 126);
     height: 20rem;
     margin: -40;
@@ -23,10 +23,10 @@ body {
 
 .center {
     position: relative;
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .margin_left {
@@ -38,6 +38,7 @@ body {
     background-color: rgb(18, 140, 126);
     color: white;
 }
+
 .webButton:hover {
     background-color: rgb(73, 200, 88);
     color: white;
@@ -69,28 +70,33 @@ body {
 }
 
 
-.one{
-    background-color:#F1F1F1;
+.one {
+    position: relative;
+    background-color: #F1F1F1;
     height: 5rem;
     border-top-left-radius: 1rem;
-    
+
 }
-.two{
-    background-color:#F1F1F1;
+
+.two {
+    background-color: #F1F1F1;
     border-top-right-radius: 1rem;
 }
-.three{
+
+.three {
     background-color: white;
     height: 50rem;
     border: 1px solid '#f0f2f5';
     border-bottom-left-radius: 1rem;
 }
-.four{
+
+.four {
+    position: relative;
     background-color: white;
     border: 1px solid '#f0f2f5';
     border-bottom-right-radius: 1rem;
-    
-    
+
+
 }
 
 ul {
@@ -99,106 +105,120 @@ ul {
 }
 
 
-.back-top{
- background-color:  #009688;
- height: 15vh;
+.back-top {
+    background-color: #009688;
+    height: 15vh;
 }
 
-.back-main{
- background-color:  #D9DBD5;
- height: 85vh;
+.back-main {
+    background-color: #D9DBD5;
+    height: 85vh;
 }
 
-.back-container{
- position: relative;
+.back-container {
+    position: relative;
 }
 
-.front-container{
- position: absolute;
- top:0;
- left:0;
- right: 0;
-}
-.front-container1{
- position: absolute;
- top:20px;
- left:0;
- right: 0;
+.front-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
-.chat-top{
- background-color: #EDEDED;
- min-height: 50px;
+.front-container1 {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
 }
 
-.profile-image{
-
- margin-top: 7px;
- height: 40px;
- width: 40px;
- border: 1px solid black;
-}
-.user-image{
-    margin-right: 30px;
-    margin-left: 8px;
-    margin-top: 22px;
-    height: 40px;
-    width: 40px;
-    border: 1px solid black;
-}
-.contacts{
- background-color: #ffffff;
- min-height: 600px;
+.chat-top {
+    background-color: #EDEDED;
+    min-height: 50px;
 }
 
-.contact-table-scroll{
+.profile-image {
+    vertical-align: middle;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
 
- overflow-y: auto;
- height: 600px;
- 
- 
-}
-
-.message-area{
- background-color:  #e4e1de;
- min-height: 600px;
 }
 
-.message-table-scroll{
- overflow-y: scroll;
- height: 550px;
+.user-image {
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    vertical-align: middle;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
 }
 
-.message-box{
-margin-top: 97.7%;
- background-color: #F1F1F1;
- border-bottom-right-radius: 1rem 
+.contacts {
+    background-color: #ffffff;
+    min-height: 600px;
 }
 
-.time{
-    text-align :right ;
+.contact-table-scroll {
+    height: 100vh;
+    overflow-y: auto;
+    height: 600px;
+
+
 }
-.contact-photo-width{
-    width :5rem;
+
+.message-area {
+    background-color: #e4e1de;
+    min-height: 600px;
 }
-.UserName-title{
+
+.message-table-scroll {
+    overflow-y: scroll;
+    height: 550px;
+}
+
+.message-box {
+    position: absolute;
+    background-color: #F1F1F1;
+    border-bottom-right-radius: 1rem;
+    bottom: 0;
+    width: 100%;
+
+}
+
+.time {
+    text-align: right;
+}
+
+.contact-photo-width {
+    width: 5rem;
+}
+
+.UserName-title {
     padding-left: 0.4rem;
     position: absolute;
-    padding-top: 1.7rem;
+    padding-top: 2rem;
     text-align: center;
-    vertical-align: middle;
-  }
-  .add-chat-button{
-      color: black;
-      background-color: #009688;
-
-  }
-
-  .add-chat-button:hover {
-    background-color: #009688;
+    vertical-align: middle
 }
 
-  .button-solid {
+.add-chat-button {
+    margin-left: 0.1rem;
+    color: black;
+    border-radius: 0.6rem;
+    margin-top: 1.3rem;
+    float: right;
+
+}
+
+.add-chat-button:hover {
+    background-color: rgb(73, 200, 88);
+}
+
+.button-solid {
     border: none;
 }
 
@@ -208,15 +228,21 @@ button-solid:focus {
     width: 20px;
     height: 20px;
 }
-.form-control{
+
+.form-control {
     width: 100%;
 }
 
-.add-button2 {
-    position: relative;
+
+.search-contact {
+    display: block;
+    width: 95%;
     margin-right: 1rem;
-    margin-top: 1.3rem;
-    float: right;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
 }
 
 
+.contact-table1{
+    height: 100%;
+}
