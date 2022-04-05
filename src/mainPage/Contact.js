@@ -12,6 +12,7 @@ function Contact(props) {
             slides[i].classList.remove("toggle-contact-color");
         }
         document.getElementById(props.contactName).classList.add("toggle-contact-color")
+        props.setIsChat(1);
     }
 
     const dontContact = function () {

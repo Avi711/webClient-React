@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Contact from './Contact'
 import Contacts from '../database/Contacts';
 import AddingContact from './AddingContact';
+import ChatScreen from '../chatscreen/ChatScreen';
+import ChatScreenHeader from '../chatscreen/ChatScreenHeader';
 
 function MainPage(props) {
 
@@ -19,10 +21,11 @@ function MainPage(props) {
     const [inputText, setInputText] = useState("");
     const [List, setList] = useState(obj.userContacts)
     const [isSearch, setIsSearch] = useState(0);
+    const [isChat, setIsChat] = useState(0);
 
     const searchBox = useRef(null);
 
-    const contactsList = List.map((contact, key) => { return <Contact {...contact} key={key} /> });
+    const contactsList = List.map((contact, key) => { return <Contact {...contact} key={key} setIsChat={setIsChat} /> });
 
     const search = function () {
         setList(obj.userContacts.filter((contact) => contact.contactName.includes(searchBox.current.value)));
@@ -65,22 +68,15 @@ function MainPage(props) {
 
 
                         {/* Modal */}
-                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText} />
+                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText}/>
 
                     </div>
-
-
-
-                    <div className="col-7 two"><img src="profile2.png" alt="" className="user-image" />
-                        <span className="UserName-title"><b>{curUser}</b></span>
-                    </div>
+                    {(isChat) ? <ChatScreenHeader curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white' }}></div>}
 
                     <div className="col-5 three">
                         {/*contact table*/}
 
-
                         <div className="contact-table-scroll contact-table1">
-
 
                             {(isSearch) ? (<>
                                 <span className='search-contact'>
@@ -91,7 +87,6 @@ function MainPage(props) {
                                 <hr className="solid"></hr>
                             </>) : ""}
 
-
                             <table className="table table-hover">
                                 <tbody>
                                     {contactsList}
@@ -99,10 +94,7 @@ function MainPage(props) {
                             </table>
                         </div>
                     </div>
-
-
-
-
+                    {(isChat) ? <ChatScreen curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white' }}></div>}
                 </div>
 
             </div>
