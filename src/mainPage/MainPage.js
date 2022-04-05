@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect,  } from 'react'
+import React, { useState, useRef, useEffect, } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Contact from './Contact'
 import Contacts from '../database/Contacts';
@@ -8,7 +8,7 @@ function MainPage(props) {
 
     let curUser = props.curUser;
 
-   // useEffect(() => {
+    // useEffect(() => {
     //    localStorage.setItem("user", JSON.stringify(curUser));
     //},)
 
@@ -70,25 +70,26 @@ function MainPage(props) {
                     </div>
 
 
-                    <div className="col-7 two">Column2
-                    </div>
 
+                    <div className="col-7 two"><img src="profile2.png" alt="" className="user-image" />
+                        <span className="UserName-title"><b>{curUser}</b></span>
+                    </div>
 
                     <div className="col-5 three">
                         {/*contact table*/}
-                        
+
 
                         <div className="contact-table-scroll contact-table1">
 
 
-                        {(isSearch) ? (<>
-                            <span className='search-contact'>
-                                <form>
-                                    <input type="text" className="form-control" placeholder="Search..." ref={searchBox} onKeyUp={search} />
-                                </form>
-                            </span>
-                            <hr className="solid"></hr>
-                        </>) : ""}
+                            {(isSearch) ? (<>
+                                <span className='search-contact'>
+                                    <form>
+                                        <input type="text" className="form-control" placeholder="Search..." ref={searchBox} onKeyUp={search} />
+                                    </form>
+                                </span>
+                                <hr className="solid"></hr>
+                            </>) : ""}
 
 
                             <table className="table table-hover">
@@ -98,87 +99,12 @@ function MainPage(props) {
                             </table>
                         </div>
                     </div>
-                    <div className="col-7 four" >
-                        <br></br>
-                        <div className="row message-body">
-                            <div className="col-sm-12 message-main-receiver">
-                                <div className="receiver">
-                                    <div className="message-text">
-                                        <img className='chat-image' src='https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_380,w_500/468089'></img>
-                                        
-                                    </div>
-                                    <span className="message-time pull-right">
-                                        10:00
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row message-body">
-                            <div className="col-sm-12 message-main-sender">
-                                <div className="sender">
-                                    <div className="message-text">
-                                        I am doing nothing man!
-                                    </div>
-                                    <span className="message-time pull-right">
-                                        10:01
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row message-body">
-                            <div className="col-sm-12 message-main-receiver">
-                                <div className="receiver">
-                                    <div className="message-text">
-                                        Where are you from?!
-                                    </div>
-                                    <span className="message-time pull-right">
-                                        10:02
-                                        
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row message-body">
-                            <div className="col-sm-12 message-main-sender">
-                                <div className="sender">
-                                    <div className="message-text">
-                                        I am from Israel!
-                                    </div>
-                                    <span className="message-time pull-right">
-                                        10:03
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
 
 
 
 
-
-                        <div className="row message-box p-3">
-
-
-                            <span className="col-sm-2" style={{ width: '54px' }}>
-                                <button className="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-paperclip" viewBox="0 0 16 16">
-                                    <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                                </svg></button>
-                            </span>
-                            <span className="col-sm-8" style={{ width: '82%' }}>
-                                <form action>
-                                    <input type="text" className="form-control" placeholder="Write message..." />
-                                </form>
-                            </span>
-                            <span className="col-sm-2 mt-1" style={{ width: '1rem' }}>
-                                <button className="button-solid" id='search-button'><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
-                                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
-                                </svg></button>
-                            </span>
-                        </div>
-                    </div>
                 </div>
+
             </div>
         </>
     )
