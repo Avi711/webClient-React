@@ -14,7 +14,7 @@ function MainPage(props) {
 
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(curUser));
-    },[curUser])
+    },)
 
     curUser = JSON.parse(localStorage.getItem("user"));
 
