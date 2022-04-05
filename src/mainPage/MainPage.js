@@ -71,7 +71,7 @@ function MainPage(props) {
                         <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText}/>
 
                     </div>
-                    {(isChat) ? <ChatScreenHeader curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white' }}></div>}
+                    {(isChat) ? <ChatScreenHeader curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white' , borderRadius:'1rem'}}></div>}
 
                     <div className="col-5 three">
                         {/*contact table*/}
@@ -94,7 +94,7 @@ function MainPage(props) {
                             </table>
                         </div>
                     </div>
-                    {(isChat) ? <ChatScreen curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white' }}></div>}
+                    {(isChat) ? <ChatScreen curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white', borderRadius:'1rem' }}></div>}
                 </div>
 
             </div>
