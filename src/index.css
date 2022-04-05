@@ -95,7 +95,8 @@ body {
 
 .four {
     position: relative;
-    background-color: lightgray;
+    background-image: url("https://www.now14.co.il/wp-content/uploads/2020/12/F190815DC13-scaled.jpg");
+    background-position: center;
     border: 1px solid '#f0f2f5';
     border-bottom-right-radius: 1rem;
 
@@ -330,4 +331,15 @@ body {
     padding: 3px 20px !important;
     margin-left: 40% !important;
     max-width: 60%;
-  }  
+  } 
+  
+
+.chat-image {
+    width: 13rem;
+    margin-bottom: 0.5rem;
+
+}
+
+.toggle-contact-color{
+    background-color: #9a9a9a;
+}
