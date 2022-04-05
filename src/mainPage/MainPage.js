@@ -1,11 +1,25 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect,  } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Contact from './Contact'
 import Contacts from '../database/Contacts';
 import AddingContact from './AddingContact';
 
 function MainPage(props) {
 
-    let obj = Contacts.find(o => o.username == props.curUser);
+    let navigate = useNavigate()
+
+
+
+    let curUser = props.curUser;
+
+    useEffect(() => {
+        localStorage.setItem("user", JSON.stringify(curUser));
+    },[curUser])
+
+    curUser = JSON.parse(localStorage.getItem("user"));
+
+
+    let obj = Contacts.find(o => o.username == curUser);
 
     const [inputText, setInputText] = useState("");
     const [List, setList] = useState(obj.userContacts)
@@ -36,7 +50,7 @@ function MainPage(props) {
             <div className="container-md main_box">
                 <div className="row row-cols-2">
                     <div className="col-5 one"><img src="profile2.png" alt="" className="user-image" />
-                        <span className="UserName-title"><b>{props.curUser}</b></span>
+                        <span className="UserName-title"><b>{curUser}</b></span>
 
 
 
@@ -56,7 +70,7 @@ function MainPage(props) {
 
 
                         {/* Modal */}
-                        <AddingContact curUser={props.curUser} setList={setList} setInputText={setInputText} inputText={inputText} />
+                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText} />
 
                     </div>
 
@@ -95,7 +109,8 @@ function MainPage(props) {
                             <div className="col-sm-12 message-main-receiver">
                                 <div className="receiver">
                                     <div className="message-text">
-                                        Hi, what are you doing?!
+                                        <img className='chat-image' src='https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_380,w_500/468089'></img>
+                                        
                                     </div>
                                     <span className="message-time pull-right">
                                         10:00
