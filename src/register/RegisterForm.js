@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import Contacts from '../database/Contacts';
 import tempUsers from '../database/DataBase';
 
 
@@ -29,7 +30,12 @@ function RegisterForm() {
             password: details.password,
             displayname: details.displayname,
           }
-        tempUsers.push(obj); 
+        var newContact = {
+            username: details.username,
+            userContacts: []
+          }
+        tempUsers.push(obj);
+        Contacts.push(newContact);
     };
 
 

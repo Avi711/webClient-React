@@ -8,11 +8,11 @@ function MainPage(props) {
 
     let curUser = props.curUser;
 
-    useEffect(() => {
-        localStorage.setItem("user", JSON.stringify(curUser));
-    },)
+   // useEffect(() => {
+    //    localStorage.setItem("user", JSON.stringify(curUser));
+    //},)
 
-    curUser = JSON.parse(localStorage.getItem("user"));
+    //curUser = JSON.parse(localStorage.getItem("user"));
 
     let obj = Contacts.find(o => o.username == curUser);
 
