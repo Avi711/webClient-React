@@ -34,6 +34,7 @@ function RegisterForm() {
             username: details.username,
             userContacts: []
           }
+          
         tempUsers.push(obj);
         Contacts.push(newContact);
     };
