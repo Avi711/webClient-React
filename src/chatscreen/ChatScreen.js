@@ -1,12 +1,9 @@
 import React from 'react'
+import MainPage from '../mainPage/MainPage'
 
-function ChatScreen() {
+function ChatScreen(props) {
     return (
         <>
-            <div className="col-7 two"><img src="profile2.png" alt="" className="user-image" />
-                <span className="UserName-title"><b>{curUser}</b></span>
-            </div>
-
             <div className="col-7 four" >
                 <br></br>
                 <div className="row message-body">
