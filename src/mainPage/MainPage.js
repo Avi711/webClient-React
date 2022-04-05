@@ -6,18 +6,13 @@ import AddingContact from './AddingContact';
 
 function MainPage(props) {
 
-    let navigate = useNavigate()
-
-
-
     let curUser = props.curUser;
 
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(curUser));
-    },[curUser])
+    },)
 
     curUser = JSON.parse(localStorage.getItem("user"));
-
 
     let obj = Contacts.find(o => o.username == curUser);
 
