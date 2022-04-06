@@ -95,6 +95,7 @@ body {
     height: 50rem;
     border: 1px solid '#f0f2f5';
     border-bottom-left-radius: 1rem;
+    padding-right: 0;
 }
 
 .four {
@@ -288,12 +289,12 @@ body {
 }
 
 
-.message-main-receiver {
+.message-main-sender {
     /*padding: 10px 20px;*/
     max-width: 60%;
 }
 
-.receiver {
+.sender {
     width: auto !important;
     padding: 4px 10px 7px !important;
     border-radius: 10px 10px 10px 0;
@@ -302,6 +303,7 @@ body {
     text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
     word-wrap: break-word;
     display: inline-block;
+    margin-top: 5px;
 }
 
 .message-text {
@@ -311,6 +313,7 @@ body {
     font-weight: 200;
     font-size: 14px;
     padding-bottom: 0 !important;
+
 }
 
 .message-time {
@@ -323,7 +326,7 @@ body {
 
 }
 
-.sender {
+.receiver {
     float: right;
     width: auto !important;
     background: #ffffff;
@@ -335,7 +338,7 @@ body {
     word-wrap: break-word;
 }
 
-.message-main-sender {
+.message-main-receiver {
     padding: 3px 20px !important;
     margin-left: 40% !important;
     max-width: 60%;
@@ -373,7 +376,7 @@ body {
 }
 
 /* Dropup content (Hidden by Default) */
-.dropup-content {
+ .dropup-content {
     display: none;
     position: absolute;
     bottom: 50px;
@@ -383,7 +386,9 @@ body {
     z-index: 1;
     border-radius: 10px;
     margin-left: -0.4rem;
+    
 }
+
 
 /* Links inside the dropup */
 .dropup-content a {
@@ -399,11 +404,11 @@ body {
     border-radius: 0.5rem;
 }
 
-/* Show the dropup menu on hover */
+/* Show the dropup menu on hover
 .dropup:hover .dropup-content {
     display: block;
 
-}
+} */
 
 /* Change the background color of the dropup button when the dropup content is shown */
 .dropup:hover .dropbtn {
@@ -412,5 +417,7 @@ body {
 }
 
   .zoom:hover {
-    transform: scale(1.15); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   }
+
+  
