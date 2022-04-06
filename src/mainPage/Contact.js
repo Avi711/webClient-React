@@ -24,6 +24,7 @@ function Contact(props) {
 
 
 
+
     return (
 
         <tr id={props.contactName} className="toggle-contact" onClick={onContact}>
