@@ -19,6 +19,7 @@ body {
     width: 45%;
     margin-top: -150px;
     margin-bottom: 10%;
+    max-width: 700px;
 
 }
 
@@ -348,7 +349,7 @@ body {
 }
 
 .toggle-contact-color {
-    background-color: #9a9a9a;
+    background-color: #e2e2e2;
 }
 
 
@@ -369,14 +370,10 @@ body {
 .dropup {
     position: relative;
     display: inline-block;
-
-
 }
 
 /* Dropup content (Hidden by Default) */
 .dropup-content {
-
-
     display: none;
     position: absolute;
     bottom: 50px;
@@ -394,7 +391,6 @@ body {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-
 }
 
 /* Change color of dropup links on hover */
@@ -415,8 +411,6 @@ body {
 
 }
 
-
-  
   .zoom:hover {
-    transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(1.15); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   }
