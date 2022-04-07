@@ -21,11 +21,11 @@ function MainPage(props) {
     const [inputText, setInputText] = useState("");
     const [List, setList] = useState(obj.userContacts)
     const [isSearch, setIsSearch] = useState(0);
-    const [isChat, setIsChat] = useState(0);
+    const [chatWith, setchatWith] = useState(0);
 
     const searchBox = useRef(null);
 
-    const contactsList = List.map((contact, key) => { return <Contact {...contact} key={key} setIsChat={setIsChat} /> });
+    const contactsList = List.map((contact, key) => { return <Contact {...contact} key={key} setchatWith={setchatWith} /> });
 
     const search = function () {
         setList(obj.userContacts.filter((contact) => contact.contactName.includes(searchBox.current.value)));
@@ -71,7 +71,7 @@ function MainPage(props) {
                         <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText}/>
 
                     </div>
-                    {(isChat) ? <ChatScreenHeader curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white' , borderTopRightRadius:'1rem'}}></div>}
+                    {(chatWith) ? <ChatScreenHeader curUser={curUser} chatWith={chatWith} /> : <div className="col-7" style={{ backgroundColor: 'white' , borderTopRightRadius:'1rem'}}></div>}
 
                     <div className="col-5 three">
                         {/*contact table*/}
@@ -94,7 +94,7 @@ function MainPage(props) {
                             </table>
                         </div>
                     </div>
-                    {(isChat) ? <ChatScreen curUser={curUser} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
+                    {(chatWith) ? <ChatScreen curUser={curUser} chatWith={chatWith} userContacts={obj.userContacts} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
                 </div>
 
             </div>

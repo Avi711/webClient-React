@@ -15,10 +15,10 @@ function Message(props) {
             <div className={class_name1}>
                 <div className={props.type}>
                     <div className="message-text">
-                        I am doing nothing man!
+                        {props.message}
                     </div>
                     <span className="message-time pull-right">
-                        10:01
+                        {props.time}
                     </span>
                 </div>
             </div>

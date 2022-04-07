@@ -67,7 +67,7 @@ body {
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     border-radius: 0.5cm;
     width: 100rem;
-    height: 55rem;
+    height: 70vh;
     margin-top: -150px;
     margin-bottom: 10%;
 }
@@ -92,27 +92,26 @@ body {
 
 
     background-color: white;
-    height: 50rem;
+    height: 70vh;
     border: 1px solid '#f0f2f5';
     border-bottom-left-radius: 1rem;
     padding-right: 0;
 }
 
 .four {
+    height: 70vh;
     position: relative;
     background-image: url("https://www.now14.co.il/wp-content/uploads/2020/12/F190815DC13-scaled.jpg");
     background-position: center;
     border: 1px solid '#f0f2f5';
     border-bottom-right-radius: 1rem;
-
-
+    padding-right: 0;
 }
 
 ul {
     overflow-y: scroll;
     height: 100%;
 }
-
 
 .back-top {
     background-color: #009688;
@@ -196,6 +195,12 @@ ul {
     bottom: 0;
     width: 100%;
 
+}
+
+.all-messages{
+    overflow-y: scroll;
+    height: 66vh;
+    padding-bottom: 1rem;
 }
 
 .time {
