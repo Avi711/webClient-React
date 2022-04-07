@@ -48,27 +48,28 @@ function RegisterForm() {
             </div>
             <div className="row my_form center">
                 <span className="title">Register to webClient</span>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} className="login-register-form">
                      {(error === "no") ? (<div className="alert alert-success">Registered succefully, please login</div>) : ""}
                      {(error === "yes") ? (<div className="alert alert-danger">Username already in use, please choose another one</div>) : ""}
                      {(error === "miss") ? (<div className="alert alert-danger">Please fill in all the details</div>) : ""}
                     <div className="form-floating mb-3">
-                        <input className="form-control" id="floatingInput" placeholder="name@example.com" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username}></input>
+                        <input className="form-control login-register-form" id="floatingInput" placeholder="name@example.com" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username}></input>
                         <label>Username</label>
                         <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div className="form-floating">
-                        <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password}></input>
+                        <input type="password" className="form-control login-register-form" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password}></input>
                         <label>Password</label>
                     </div>
                     <br></br>
                     <div className="form-floating">
-                        <input className="form-control" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, displayname: e.target.value })} value={details.displayname}></input>
+                        <input className="form-control login-register-form" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, displayname: e.target.value })} value={details.displayname}></input>
                         <label>Display name</label>
                     </div>
                     <br></br>
                     <button type="submit" className="btn webButton">Register</button>
-                    <span className="margin_left">Already register? <Link to="/">click here</Link> to login.</span>
+                    <hr></hr>
+                    <span className="btn">Already register? <Link to="/">click here</Link> to login.</span>
                 </form>
             </div>
 

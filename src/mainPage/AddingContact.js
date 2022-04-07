@@ -11,12 +11,11 @@ function AddingContact(props) {
 
     const addConatct = function (e) {
         e.preventDefault();
-        console.log("yohoooooooooooooooo")
         let obj = Contacts.find(o => o.username == props.curUser);
-        const contact = { contactName: addBox.current.value, contactMessage: '', time: curTime.getHours() + ":" + curTime.getMinutes(), image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [] }
+        const contact = { contactName: addBox.current.value, lastMessage: '', time: curTime.getHours() + ":" + curTime.getMinutes(), image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [{sender:"", message: "", time: ""}] }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
-        props.setInputText(addBox.current.value)
+        props.setInputText(!props.inputText)
         document.getElementById("adding-form").reset();
     }
 
