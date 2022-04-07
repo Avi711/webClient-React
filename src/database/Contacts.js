@@ -1,7 +1,7 @@
 
-let avi711Kehat = [{"avi711": "hello", time: "11:47"}, {"kehat": "hello", time: "11:47"}]
-let avi711Or = [{"avi711": "hello", time: "11:47"}, {"kehat": "hello", time: "11:47"}]
-let avi711Rodin = [{"avi711": "hello", time: "11:47"}, {"kehat": "hello", time: "11:47"}]
+let avi711Kehat = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"kehat", message: "hello to", time: "11:47"}]
+let avi711Or = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"avi711", message: "hello not", time: "11:47"}]
+let avi711Rodin = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"avi711", message: "hello", time: "11:47"}]
 
 const Contacts = [
     {
