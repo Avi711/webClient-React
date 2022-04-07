@@ -25,13 +25,6 @@ function ChatScreen(props) {
                 <Message type ="receiver"/>
                 <Message type ="receiver"/>
                 
-
-
-                
-
-
-
-
                 <div className="row message-box p-3">
 
 
