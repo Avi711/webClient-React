@@ -92,6 +92,7 @@ function MainPage(props) {
                             <table className="table table-hover">
                                 <tbody>
                                     {contactsList}
+                                    
                                 </tbody>
                             </table>
                         </div>
