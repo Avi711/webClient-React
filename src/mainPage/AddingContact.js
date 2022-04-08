@@ -57,7 +57,7 @@ function AddingContact(props) {
                                 <input ref={addBox} type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
                             </div>
                             <div className="modal-footer">
-                                <button type="submit" className="btn btn-success" data-bs-dismiss="modappppp">Add contact</button>
+                                <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Add contact</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
