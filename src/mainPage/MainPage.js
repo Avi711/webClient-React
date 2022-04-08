@@ -21,11 +21,13 @@ function MainPage(props) {
     const [inputText, setInputText] = useState(0);
     const [List, setList] = useState(obj.userContacts)
     const [isSearch, setIsSearch] = useState(0);
-    const [chatWith, setchatWith] = useState(0);
+    const [chatWith, setChatWith] = useState(0);
 
+    console.log(chatWith);
     const searchBox = useRef(null);
 
-    const contactsList = List.map((contact, key) => {return <Contact {...contact} lastMessage={contact.chat.at(-1).message} time={contact.chat.at(-1).time} key={key} setchatWith={setchatWith} /> });
+    const contactsList = List.map((contact, key) => { if(contact.chat.length > 0) return <Contact {...contact} lastMessage={contact.chat.at(-1).message} time={contact.chat.at(-1).time} key={key} setChatWith={setChatWith} />;
+     else  return <Contact {...contact} key={key} setChatWith={setChatWith} /> });
 
     const search = function () {
         setList(obj.userContacts.filter((contact) => contact.contactName.includes(searchBox.current.value)));
@@ -68,7 +70,7 @@ function MainPage(props) {
 
 
                         {/* Modal */}
-                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText}/>
+                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText} setChatWith={setChatWith}/>
 
                     </div>
                     {(chatWith) ? <ChatScreenHeader curUser={curUser} chatWith={chatWith} /> : <div className="col-7" style={{ backgroundColor: 'white' , borderTopRightRadius:'1rem'}}></div>}
@@ -80,7 +82,7 @@ function MainPage(props) {
 
                             {(isSearch) ? (<>
                                 <span className='search-contact'>
-                                    <form>
+                                    <form onSubmit={(e) => {e.preventDefault()}}>
                                         <input type="text" className="form-control" placeholder="Search..." ref={searchBox} onKeyUp={search} />
                                     </form>
                                 </span>

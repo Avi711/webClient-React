@@ -56,7 +56,7 @@ function LoginForm(props) {
                     <br></br>
                     <input type="submit" className="btn webButton" value="Login"></input>
                     <hr></hr>
-                    <span className="btn">Not registerd? <Link to="/register">click here</Link> to register.</span>
+                    <span className="center-text">Not registerd? <Link to="/register">click here</Link> to register.</span>
 
                 </form>
             </div>
