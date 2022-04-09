@@ -18,14 +18,16 @@ function MainPage(props) {
 
     let obj = Contacts.find(o => o.username == curUser);
 
-    const [inputText, setInputText] = useState("");
+    const [inputText, setInputText] = useState(0);
     const [List, setList] = useState(obj.userContacts)
     const [isSearch, setIsSearch] = useState(0);
-    const [chatWith, setchatWith] = useState(0);
+    const [chatWith, setChatWith] = useState(0);
 
+    console.log(chatWith);
     const searchBox = useRef(null);
 
-    const contactsList = List.map((contact, key) => { return <Contact {...contact} key={key} setchatWith={setchatWith} /> });
+    const contactsList = List.map((contact, key) => { if(contact.chat.length > 0) return <Contact {...contact} lastMessage={contact.chat.at(-1).message} time={contact.chat.at(-1).time} key={key} setChatWith={setChatWith} />;
+     else  return <Contact {...contact} key={key} setChatWith={setChatWith} /> });
 
     const search = function () {
         setList(obj.userContacts.filter((contact) => contact.contactName.includes(searchBox.current.value)));
@@ -62,13 +64,13 @@ function MainPage(props) {
                                 </svg>
                             </button>
                         </span>
-                        <span className='btn add-chat-button zoom' id='search-button' onClick={searchBar}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <span className='btn add-chat-button zoom' id='search-button' onClick={searchBar}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg></span>
 
 
                         {/* Modal */}
-                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText}/>
+                        <AddingContact curUser={curUser} setList={setList} setInputText={setInputText} inputText={inputText} setChatWith={setChatWith}/>
 
                     </div>
                     {(chatWith) ? <ChatScreenHeader curUser={curUser} chatWith={chatWith} /> : <div className="col-7" style={{ backgroundColor: 'white' , borderTopRightRadius:'1rem'}}></div>}
@@ -80,21 +82,22 @@ function MainPage(props) {
 
                             {(isSearch) ? (<>
                                 <span className='search-contact'>
-                                    <form>
+                                    <form onSubmit={(e) => {e.preventDefault()}}>
                                         <input type="text" className="form-control" placeholder="Search..." ref={searchBox} onKeyUp={search} />
                                     </form>
                                 </span>
                                 <hr className="solid"></hr>
                             </>) : ""}
 
-                            <table className="table table-hover">
+                            <table className="table table-hover contact-table2">
                                 <tbody>
                                     {contactsList}
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    {(chatWith) ? <ChatScreen curUser={curUser} chatWith={chatWith} userContacts={obj.userContacts} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
+                    {(chatWith) ? <ChatScreen curUser={curUser} chatWith={chatWith} userContacts={obj.userContacts} setInputText={setInputText} inputText={inputText} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
                 </div>
 
             </div>

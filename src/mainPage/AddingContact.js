@@ -2,14 +2,14 @@ import React, { useState, useRef } from 'react'
 import Contacts from '../database/Contacts';
 
 
-
 function AddingContact(props) {
-    var curTime = new Date();
     const addBox = useRef(null);
 
     const [error, setError] = useState("no");
+
     const [empty, setEmpty] = useState("");
 
+    const [modalClose, setModalClose] = useState("modal");
 
 
     const addConatct = function (e) {
@@ -17,13 +17,32 @@ function AddingContact(props) {
         setEmpty("miss");
 
         e.preventDefault();
-        console.log("yohoooooooooooooooo")
         let obj = Contacts.find(o => o.username == props.curUser);
-        const contact = { contactName: addBox.current.value, contactMessage: '', time: curTime.getHours() + ":" + curTime.getMinutes(), image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [] }
+
+        if (addBox.current.value == "") {
+            setModalClose("no");
+            return;
+        }
+
+        // for (var i = 0; i < obj.userContacts.length; i++) {
+        //     if()
+        //     obj.userContacts[i].contactName == addBox.current.value
+        // }
+
+
+        const contact = { contactName: addBox.current.value, lastMessage: '', time: '', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [] }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
-        props.setInputText(addBox.current.value)
+        props.setInputText(!props.inputText)
         document.getElementById("adding-form").reset();
+        props.setChatWith([contact.contactName, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg"]);
+        var slides = document.getElementsByClassName("toggle-contact");
+        for (var i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("toggle-contact-color");
+        }
+        props.setInputText(!props.inputText)
+
+        //document.getElementById(props.contactName).classList.add("toggle-contact-color")
     }
 
     return (
@@ -37,8 +56,10 @@ function AddingContact(props) {
                     <div className="modal-body">
                         <form onSubmit={addConatct} id="adding-form">
                             <div className="mb-3">
+
                             {(error == "yes") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
                             {(empty == "miss") ? (<div className="alert alert-danger">Please fill User Name</div>) : ""}
+
                                 <label htmlFor="recipient-name" className="col-form-label">Username:</label>
                                 <input ref={addBox} type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
                             </div>
