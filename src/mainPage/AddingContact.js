@@ -1,8 +1,5 @@
 import React, { useState, useRef } from 'react'
 import Contacts from '../database/Contacts';
-import $ from 'jquery'
-import {Modal} from 'bootstrap';
-
 
 
 function AddingContact(props) {
