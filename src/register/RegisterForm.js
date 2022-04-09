@@ -13,6 +13,7 @@ function RegisterForm() {
     const [error, setError] = useState("");
 
 
+
     function validate() {
         if(details.username === "" || details.password === "" || details.displayname === "") {
             setError("miss");
@@ -58,12 +59,12 @@ function RegisterForm() {
             username: details.username,
             password: details.password,
             displayname: details.displayname,
-          }
+        }
         var newContact = {
             username: details.username,
             userContacts: []
-          }
-          
+        }
+
         tempUsers.push(obj);
         Contacts.push(newContact);
     };
@@ -77,6 +78,7 @@ function RegisterForm() {
             </div>
             <div className="row my_form center">
                 <span className="title">Register to webClient</span>
+
                 <form onSubmit={onSubmit} className="login-register-form">
                      {(error === "no") ? (<div className="alert alert-success">Registered succefully, please login.</div>) : ""}
                      {(error === "yes") ? (<div className="alert alert-danger">Username already in use, please choose another one.</div>) : ""}
@@ -84,6 +86,7 @@ function RegisterForm() {
                      {(error === "length") ? (<div className="alert alert-danger">Password should contain at least 8 characters.</div>) : ""}
                      {(error === "letter") ? (<div className="alert alert-danger">Your password must contain at least one letter.</div>) : ""}
                      {(error === "digit") ? (<div className="alert alert-danger">Your password must contain at least one digit..</div>) : ""}
+                                             
                     <div className="form-floating mb-3">
                         <input className="form-control login-register-form" id="floatingInput" placeholder="name@example.com" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username}></input>
                         <label>Username</label>
@@ -98,6 +101,15 @@ function RegisterForm() {
                         <input className="form-control login-register-form" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, displayname: e.target.value })} value={details.displayname}></input>
                         <label>Display name</label>
                     </div>
+
+                    <br />
+
+                    <label for="avatar">Choose a profile picture:&nbsp;</label>
+                    <input type="file"
+                        id="profile_pic" name="profile_pic"
+                        accept="image/png, image/jpeg" />
+
+                    <br></br>
                     <br></br>
                     <button type="submit" className="btn webButton">Register</button>
                     <hr></hr>
