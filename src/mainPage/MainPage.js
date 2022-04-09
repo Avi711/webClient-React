@@ -89,7 +89,7 @@ function MainPage(props) {
                                 <hr className="solid"></hr>
                             </>) : ""}
 
-                            <table className="table table-hover">
+                            <table className="table table-hover contact-table2">
                                 <tbody>
                                     {contactsList}
                                     

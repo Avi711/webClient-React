@@ -1,4 +1,3 @@
-import { type } from '@testing-library/user-event/dist/type';
 import React, { useState, useRef, useEffect, } from 'react'
 import Message from './Message';
 
