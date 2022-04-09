@@ -8,8 +8,14 @@ function AddingContact(props) {
     const addBox = useRef(null);
 
     const [error, setError] = useState("no");
+    const [empty, setEmpty] = useState("");
+
+
 
     const addConatct = function (e) {
+        if(addBox.current.value=="")
+        setEmpty("miss");
+
         e.preventDefault();
         console.log("yohoooooooooooooooo")
         let obj = Contacts.find(o => o.username == props.curUser);
@@ -32,6 +38,7 @@ function AddingContact(props) {
                         <form onSubmit={addConatct} id="adding-form">
                             <div className="mb-3">
                             {(error == "yes") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
+                            {(empty == "miss") ? (<div className="alert alert-danger">Please fill User Name</div>) : ""}
                                 <label htmlFor="recipient-name" className="col-form-label">Username:</label>
                                 <input ref={addBox} type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
                             </div>
