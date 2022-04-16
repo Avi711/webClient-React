@@ -12,7 +12,7 @@ function Contact(props) {
             slides[i].classList.remove("toggle-contact-color");
         }
         document.getElementById(props.contactName).classList.add("toggle-contact-color")
-        props.setChatWith([props.contactName, props.image]);
+        props.setChatWith([props.displayname, props.image]);
     }
 
     const dontContact = function () {
@@ -27,9 +27,9 @@ function Contact(props) {
 
     return (
 
-        <tr id={props.contactName} className="toggle-contact" onClick={onContact}>
+        <tr id={props.displayname} className="toggle-contact" onClick={onContact}>
             <td className="contact-photo-width"><img src={props.image} alt="" className="profile-image" /></td>
-            <td className='last-message'><b>{props.contactName} </b><br /> <small>{props.lastMessage}</small></td>
+            <td className='last-message'><b>{props.displayname} </b><br /> <small>{props.lastMessage}</small></td>
             <td className="time" ><small>{props.time}</small></td>
         </tr>
     )
