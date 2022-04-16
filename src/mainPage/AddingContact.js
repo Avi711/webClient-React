@@ -1,36 +1,45 @@
 import React, { useState, useRef } from 'react'
 import Contacts from '../database/Contacts';
+import tempUsers from '../database/DataBase';
+import $ from 'jquery';
+
 
 
 function AddingContact(props) {
+
+    
     const addBox = useRef(null);
 
     const [error, setError] = useState("no");
 
-    const [empty, setEmpty] = useState("");
-
-    const [modalClose, setModalClose] = useState("modal");
 
 
     const addConatct = function (e) {
-        if(addBox.current.value=="")
-        setEmpty("miss");
-
         e.preventDefault();
+        setError("no");
+        if (addBox.current.value == "") {
+            setError("miss");
+            return;
+        }
         let obj = Contacts.find(o => o.username == props.curUser);
 
-        if (addBox.current.value == "") {
-            setModalClose("no");
+
+
+        for (var i = 0; i < obj.userContacts.length; i++) {
+            if (obj.userContacts[i].contactName == addBox.current.value) {
+                setError("yes");
+                return;
+            }
+        }
+
+        let obj_user = tempUsers.find(o => o.username == addBox.current.value);
+        if (obj_user == null) {
+            setError("noUser");
             return;
         }
 
-        // for (var i = 0; i < obj.userContacts.length; i++) {
-        //     if()
-        //     obj.userContacts[i].contactName == addBox.current.value
-        // }
 
-
-        const contact = { contactName: addBox.current.value, lastMessage: '', time: '', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [] }
+        const contact = { contactName: obj_user.username, displayname: obj_user.displayname, lastMessage: '', time: '', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [] }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
         props.setInputText(!props.inputText)
@@ -41,8 +50,10 @@ function AddingContact(props) {
             slides[i].classList.remove("toggle-contact-color");
         }
         props.setInputText(!props.inputText)
+        setError("success")
 
         //document.getElementById(props.contactName).classList.add("toggle-contact-color")
+
     }
 
     return (
@@ -56,15 +67,17 @@ function AddingContact(props) {
                     <div className="modal-body">
                         <form onSubmit={addConatct} id="adding-form">
                             <div className="mb-3">
+                                {(error == "noUser") ? (<div className="alert alert-danger">There is no user by that name</div>) : ""}
+                                {(error == "yes") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
+                                {(error == "miss") ? (<div className="alert alert-danger">Please fill User Name</div>) : ""}
+                                {(error == "success") ? (<div className="alert alert-success">{addBox.current.value} added successfully</div>) : ""}
 
-                            {(error == "yes") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
-                            {(empty == "miss") ? (<div className="alert alert-danger">Please fill User Name</div>) : ""}
 
                                 <label htmlFor="recipient-name" className="col-form-label">Username:</label>
                                 <input ref={addBox} type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
                             </div>
                             <div className="modal-footer">
-                                <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Add contact</button>
+                                <button type="submit" className="btn btn-success" data-bs-dismiss="llllll">Add contact</button>
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
