@@ -9,7 +9,7 @@ import tempUsers from '../database/DataBase';
 function RegisterForm() {
 
 
-    const [details, setDetails] = useState({ displayname: "", username: "", password: "" });
+    const [details, setDetails] = useState({ displayname: "", username: "", password: "", });
     const [error, setError] = useState("");
 
 
@@ -39,15 +39,15 @@ function RegisterForm() {
             return -1
         }
 
-
+        
         return 0;
 
 
 
 
     }
-
-
+    
+   
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -59,6 +59,7 @@ function RegisterForm() {
             username: details.username,
             password: details.password,
             displayname: details.displayname,
+            
         }
         var newContact = {
             username: details.username,
@@ -67,9 +68,19 @@ function RegisterForm() {
 
         tempUsers.push(obj);
         Contacts.push(newContact);
-    };
 
-
+        document.getElementById('profile_pic').addEventListener("change",function(){
+            const reader = new FileReader();
+            reader.addEventListener("load", ()=>{
+                localStorage.setItem("recent-image",reader.result);
+            });
+            reader.readAsDataURL(this.files[0]);
+            
+        });
+       
+    }
+    
+  
 
     return (
         <>
@@ -108,6 +119,8 @@ function RegisterForm() {
                     <input type="file"
                         id="profile_pic" name="profile_pic"
                         accept="image/png, image/jpeg" />
+
+
 
                     <br></br>
                     <br></br>
