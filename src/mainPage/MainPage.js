@@ -5,6 +5,7 @@ import Contacts from '../database/Contacts';
 import AddingContact from './AddingContact';
 import ChatScreen from '../chatscreen/ChatScreen';
 import ChatScreenHeader from '../chatscreen/ChatScreenHeader';
+import jQuery from 'jquery';
 
 function MainPage(props) {
 
@@ -49,7 +50,7 @@ function MainPage(props) {
 
             <div className="container-md main_box">
                 <div className="row row-cols-2">
-                    <div className="col-5 one"><img src="profile2.png" alt="" className="user-image" />
+                    <div className="col-5 one"><img src={localStorage.getItem("recent-image")} alt="" className="user-image" />
                         <span className="UserName-title"><b>{curUser}</b></span>
 
 
