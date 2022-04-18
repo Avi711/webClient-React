@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react'
 import Contacts from '../database/Contacts';
 import tempUsers from '../database/DataBase';
-import $ from 'jquery';
 
 
 
@@ -27,7 +26,7 @@ function AddingContact(props) {
 
         for (var i = 0; i < obj.userContacts.length; i++) {
             if (obj.userContacts[i].contactName == addBox.current.value) {
-                setError("yes");
+                setError("exists");
                 return;
             }
         }
@@ -37,27 +36,33 @@ function AddingContact(props) {
             setError("noUser");
             return;
         }
+        if(obj.username == addBox.current.value) {
+            setError("current");
+            return;
+        }
 
 
-        const contact = { contactName: obj_user.username, displayname: obj_user.displayname, lastMessage: '', time: '', image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg", chat: [] }
+        const contact = { contactName: obj_user.username, displayname: obj_user.displayname, lastMessage: '', time: '', image: obj_user.image, chat: [] }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
         props.setInputText(!props.inputText)
         document.getElementById("adding-form").reset();
-        props.setChatWith([contact.contactName, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Netanyahu_official_portrait_%28cropped%29.jpg/250px-Netanyahu_official_portrait_%28cropped%29.jpg"]);
+        props.setChatWith([contact.contactName, contact.image, contact.displayname]);
         var slides = document.getElementsByClassName("toggle-contact");
         for (var i = 0; i < slides.length; i++) {
             slides[i].classList.remove("toggle-contact-color");
         }
         props.setInputText(!props.inputText)
         setError("success")
+        document.getElementById("close-adding-contact").click();
+        setError(null)
 
         //document.getElementById(props.contactName).classList.add("toggle-contact-color")
 
     }
 
     return (
-        <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="add-contact-modal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -67,8 +72,9 @@ function AddingContact(props) {
                     <div className="modal-body">
                         <form onSubmit={addConatct} id="adding-form">
                             <div className="mb-3">
+                                {(error == "current") ? (<div className="alert alert-danger">You can't add yourself to your contact list</div>) : ""}
                                 {(error == "noUser") ? (<div className="alert alert-danger">There is no user by that name</div>) : ""}
-                                {(error == "yes") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
+                                {(error == "exists") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
                                 {(error == "miss") ? (<div className="alert alert-danger">Please fill User Name</div>) : ""}
                                 {(error == "success") ? (<div className="alert alert-success">{addBox.current.value} added successfully</div>) : ""}
 
@@ -78,7 +84,7 @@ function AddingContact(props) {
                             </div>
                             <div className="modal-footer">
                                 <button type="submit" className="btn btn-success" data-bs-dismiss="llllll">Add contact</button>
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" id='close-adding-contact' className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>

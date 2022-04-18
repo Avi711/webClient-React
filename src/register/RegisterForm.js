@@ -10,8 +10,17 @@ function RegisterForm() {
 
 
     const [details, setDetails] = useState({ displayname: "", username: "", password: "", });
+    const [image, setImage] = useState("profile2.png")
     const [error, setError] = useState("");
 
+    function photo(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            setImage(reader.result);
+        }
+        reader.readAsDataURL(file); 
+    }
 
 
     function validate() {
@@ -38,15 +47,9 @@ function RegisterForm() {
             setError("digit");
             return -1
         }
-
-        
         return 0;
 
-
-
-
     }
-    
    
     const onSubmit = (e) => {
         e.preventDefault();
@@ -59,28 +62,16 @@ function RegisterForm() {
             username: details.username,
             password: details.password,
             displayname: details.displayname,
-            
+            image: image
         }
         var newContact = {
             username: details.username,
             userContacts: []
         }
-
         tempUsers.push(obj);
-        Contacts.push(newContact);
-
-        document.getElementById('profile_pic').addEventListener("change",function(){
-            const reader = new FileReader();
-            reader.addEventListener("load", ()=>{
-                localStorage.setItem("recent-image",reader.result);
-            });
-            reader.readAsDataURL(this.files[0]);
-            
-        });
-       
+        Contacts.push(newContact);  
     }
     
-  
 
     return (
         <>
@@ -115,8 +106,8 @@ function RegisterForm() {
 
                     <br />
 
-                    <label for="avatar">Choose a profile picture:&nbsp;</label>
-                    <input type="file"
+                    <label>Choose a profile picture: (Optional)&nbsp;</label>
+                    <input onChange={photo} type="file"
                         id="profile_pic" name="profile_pic"
                         accept="image/png, image/jpeg" />
 

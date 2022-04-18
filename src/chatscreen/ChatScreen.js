@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, } from 'react'
 import Message from './Message';
+import SendModals from './SendModals';
 
 
 function ChatScreen(props) {
@@ -8,15 +9,14 @@ function ChatScreen(props) {
 
     const chatList = currentChat.slice(0).reverse().map((message, key) => { if (message.sender == props.curUser) return <Message {...message} type="sender" key={key} />; else return <Message {...message} type="receiver" key={key} />; });
 
-    const [messages, setMessages] = useState(1)
     // (message.sender == props.curUser)
 
     const openMenu = function () {
         var e = document.getElementById("send-menu");
-        if (e.style.display == 'block')
-            e.style.display = 'none';
-        else
-            e.style.display = 'block';
+       // if (e.style.display == 'block')
+      //      e.style.display = 'none';
+      //  else
+      //      e.style.display = 'block';
     }
 
     const searchBox = useRef(null)
@@ -28,7 +28,7 @@ function ChatScreen(props) {
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
         currentChat.push({ sender: props.curUser, message: searchBox.current.value, time: curTime })
-        setMessages(!messages)
+        //setMessages(!messages)
         document.getElementById("message-input").value = document.getElementById("message-input").defaultValue;
         props.setInputText(!props.inputText)
     }
@@ -49,7 +49,7 @@ function ChatScreen(props) {
                             <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
                         </svg></button>
                         <div className="dropdown-menu dropup-content">
-                            <a className="zoom"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-image " viewBox="0 0 16 16">
+                            <a data-bs-toggle="modal" data-bs-target="#send-image-modal" className="zoom"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-image " viewBox="0 0 16 16">
                                 <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                 <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
                             </svg></a>
@@ -66,6 +66,7 @@ function ChatScreen(props) {
                             </svg></a>
                         </div>
                     </span>
+                    <SendModals currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser}/>
                     <span className="col-sm-8 message-form" id="message-form" style={{ width: '90%' }}>
                         <form onSubmit={sendMessage}>
                             <input type="text" id="message-input" className="form-control" placeholder="Write message..." ref={searchBox} />
