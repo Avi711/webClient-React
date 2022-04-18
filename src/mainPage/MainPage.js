@@ -6,6 +6,8 @@ import AddingContact from './AddingContact';
 import ChatScreen from '../chatscreen/ChatScreen';
 import ChatScreenHeader from '../chatscreen/ChatScreenHeader';
 import jQuery from 'jquery';
+import tempUsers from '../database/DataBase';
+import { Link } from 'react-router-dom';
 
 function MainPage(props) {
 
@@ -19,12 +21,13 @@ function MainPage(props) {
 
     let obj = Contacts.find(o => o.username == curUser);
 
+    let current_tempUsers = tempUsers.find(o => o.username == curUser);
+
     const [inputText, setInputText] = useState(0);
     const [List, setList] = useState(obj.userContacts)
     const [isSearch, setIsSearch] = useState(0);
     const [chatWith, setChatWith] = useState(0);
 
-    console.log(chatWith);
     const searchBox = useRef(null);
 
     const contactsList = List.map((contact, key) => { if(contact.chat.length > 0) return <Contact {...contact} lastMessage={contact.chat.at(-1).message} time={contact.chat.at(-1).time} key={key} setChatWith={setChatWith} />;
@@ -50,7 +53,7 @@ function MainPage(props) {
 
             <div className="container-md main_box">
                 <div className="row row-cols-2">
-                    <div className="col-5 one"><img src={localStorage.getItem("recent-image")} alt="" className="user-image" />
+                    <div className="col-5 one"><img src={current_tempUsers.image} alt="" className="user-image" />
                         <span className="UserName-title"><b>{curUser}</b></span>
 
 
@@ -58,7 +61,7 @@ function MainPage(props) {
 
                         {/* Button trigger modal */}
                         <span>
-                            <button type="button" className="btn button-solid add-chat-button zoom" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" className="btn button-solid add-chat-button zoom" data-bs-toggle="modal" data-bs-target="#add-contact-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width={25} height={25} fill="currentColor" className="bi bi-person-plus" viewBox="0 0 16 16">
                                     <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                                     <path fillRule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
@@ -100,8 +103,9 @@ function MainPage(props) {
                     </div>
                     {(chatWith) ? <ChatScreen curUser={curUser} chatWith={chatWith} userContacts={obj.userContacts} setInputText={setInputText} inputText={inputText} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
                 </div>
-
+                <Link to="/">click me</Link>
             </div>
+            
         </>
     )
 }

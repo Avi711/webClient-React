@@ -3,6 +3,11 @@ let avi711Kehat = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"
 let avi711Or = [{sender:"avi711", message: "hello to you tu", time: "11:47"}, {sender:"avi711", message: "hello not", time: "11:47"}]
 let avi711Rodin = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"avi711", message: "hello", time: "11:47"}]
 
+
+let dan711Kehat = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"kehat", message: "hello to", time: "11:47"}]
+let dan711Or = [{sender:"avi711", message: "hello to you tu", time: "11:47"}, {sender:"avi711", message: "hello not", time: "11:47"}]
+let dan711Rodin = [{sender:"avi711", message: "hello", time: "11:47"}, {sender:"avi711", message: "hello", time: "11:47"}]
+
 const Contacts = [
     {
       username: "avi711",
@@ -12,9 +17,9 @@ const Contacts = [
     },
     {
       username: "dan711",
-      userContacts: [{ contactName: 'sudri', displayname:'sudri', lastMessage: 'hello there', time: '15:12', image : "profile3.png" },
-      { contactName: 'shirin', displayname:'shirin', lastMessage: 'whats up ?', time: '13:09', image : "profile5.png" },
-      { contactName: 'tal', displayname:'tal', lastMessage: 'hi bro ehat ap', time: '14:12', image : "profile6.png" }]
+      userContacts: [{ contactName: 'sudri', displayname:'sudri', lastMessage: 'hello there', time: '15:12', image : "profile3.png", chat:  dan711Kehat },
+      { contactName: 'shirin', displayname:'shirin', lastMessage: 'whats up ?', time: '13:09', image : "profile5.png", chat:  dan711Kehat },
+      { contactName: 'tal', displayname:'tal', lastMessage: 'hi bro ehat ap', time: '14:12', image : "profile6.png", chat:  dan711Kehat }]
 
     }
   ]
