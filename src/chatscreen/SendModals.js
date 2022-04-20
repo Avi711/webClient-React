@@ -6,6 +6,7 @@ import { wait } from "@testing-library/user-event/dist/utils";
 function SendModals(props) {
     const [image, setImage] = useState("")
     const [record, setRecord] = useState("")
+    const [isRecording, setIsRecording] = useState(0);
 
     const videoRef = useRef(null);
     const photoRef = useRef(null);
@@ -64,6 +65,10 @@ function SendModals(props) {
 
 
     function start_record() {
+        const list = document.getElementById("my_record");
+        if(list.lastElementChild) {
+        list.removeChild(list.lastElementChild);
+        }
         
         document.getElementById("msg").innerHTML = "<img style = {{width:'100%'}} src='https://i.gifer.com/YdBO.gif'/>"
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -82,7 +87,7 @@ function SendModals(props) {
                     let audio = new Audio(audio_url);
                     audio.setAttribute("controls", 1);
                     document.getElementById('my_record').appendChild(audio);
-                    setRecord(audio)
+                    setRecord(audio_url)
                 });
                 document.getElementById('stopRecord').onclick = () => {
                 recorder.stop()
@@ -98,7 +103,7 @@ function SendModals(props) {
         e.preventDefault();
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        props.currentChat.push({ sender: props.curUser, message: record, time: curTime })
+        props.currentChat.push({ sender: props.curUser, message: <audio style={{maxWidth: '100%'}} preload="auto" src={record} controls="1"></audio>, time: curTime })
         props.setInputText(!props.inputText)
         document.getElementById("close-record-modal").click();
         document.getElementById("chat-record").reset();
@@ -147,11 +152,11 @@ return (
                     </div>
                     <form id="chat-record" onSubmit={sendRecord}>
                         <div className="modal-body">
-                            <div className="center1" id="my_record">
-                                <button type="button" style={{ background: 'url(https://webaudiodemos.appspot.com/AudioRecorder/img/mic128.png)', width: '100px', height: '130px', border: 'none' }} id="satrt_record" />
-                                <label><button type="button" onClick={start_record} id="startRecord">Start</button></label>
-                                <label><button  type="button" id="stopRecord">Stop</button></label>
+                            <div className="center1" >
+                                <button type="button" onClick={start_record} style={{ background: 'url(https://webaudiodemos.appspot.com/AudioRecorder/img/mic128.png)', width: '100px', height: '130px', border: 'none' }} id="satrt_record" />
+                                <label><button className="btn btn-danger"  type="button" id="stopRecord">Stop</button></label>
                                 <span style={{width:'100%'}} id="msg"></span>
+                                <div id="my_record"></div>
 
                             </div>
 
