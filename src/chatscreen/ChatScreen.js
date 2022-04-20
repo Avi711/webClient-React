@@ -50,7 +50,7 @@ function ChatScreen(props) {
 
                 <div className="row message-box p-3">
 
-                    <span className="col-sm-2 dropup" style={{ width: '54px' }}>
+                    <div className='attach-button'>
                         <button onClick={openMenu} className="btn btn-secondary dropbtn" data-bs-toggle="dropdown"><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-paperclip" viewBox="0 0 16 16" >
                             <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
                         </svg></button>
@@ -75,16 +75,17 @@ function ChatScreen(props) {
                                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                             </svg></a>
                         </div>
-                    </span>
-                    <SendModals currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser} />
-                    <span className="col-sm-8 message-form" id="message-form" style={{ width: '90%' }}>
-                        <form onSubmit={sendMessage}>
+                    </div>
+                    <SendModals currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser}/>
+                    <div id="message-form">
+                        <form onSubmit={sendMessage} style={{display: 'flex'}}>
+
                             <input type="text" id="message-input" className="form-control" placeholder="Write message..." ref={searchBox} />
                             <button type='submit' className="button-solid zoom"><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
                                 <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
                             </svg></button>
                         </form>
-                    </span>
+                    </div>
                     {/* <span className="col-sm-2 mt-1" style={{ width: '1rem' }}>
                     </span> */}
                 </div>

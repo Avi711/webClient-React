@@ -51,7 +51,9 @@ function MainPage(props) {
 
             </div>
 
-            <div className="container-md main_box">
+            <div className='container-a'>
+
+            <div className="container-md- main_box">
                 <div className="row row-cols-2">
                     <div className="col-5 one"><img src={current_tempUsers.image} alt="" className="user-image" />
                         <span className="UserName-title"><b>{curUser}</b></span>
@@ -104,6 +106,7 @@ function MainPage(props) {
                     {(chatWith) ? <ChatScreen curUser={curUser} chatWith={chatWith} userContacts={obj.userContacts} setInputText={setInputText} inputText={inputText} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
                 </div>
                 <Link to="/">click me</Link>
+            </div>
             </div>
             
         </>
