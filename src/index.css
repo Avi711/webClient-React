@@ -33,7 +33,16 @@ body {
     right: 0;
     margin-left: auto;
     margin-right: auto;
+    
+
+
+
 }
+.center1 {
+    position: relative;
+    
+    margin-left: 35%;
+  }
 
 .margin_left {
     margin-left: 15rem;
@@ -474,4 +483,3 @@ body {
       max-width: 100%;
   }
 
-  
