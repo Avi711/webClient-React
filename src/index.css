@@ -98,12 +98,16 @@ body {
     height: 5rem;
     border-top-left-radius: 1rem;
     border-right: 0.06rem solid lightgray;
+    align-items: center;
+    grid-template-columns: 20% 56% 10% 14%;
 }
 
 .two {
     background-color: rgb(241, 241, 241);
     border-top-right-radius: 1rem;
     border-left: 0.06rem solid lightgray;
+    align-items: center;
+    grid-template-columns: 20% 80%;
 
 }
 
@@ -241,13 +245,7 @@ ul {
     width: 5rem;
 }
 
-.UserName-title {
-    padding-left: 0.4rem;
-    position: absolute;
-    padding-top: 2rem;
-    text-align: center;
-    vertical-align: middle
-}
+
 
 .add-chat-button {
     margin-left: 0.1rem;
@@ -381,14 +379,14 @@ body {
 
 .message-time {
     float: right;
-    margin: 0 !important;
-    margin-left: 50px !important;
     font-size: 12px;
     text-align: right;
     color: #999999;
 
 }
-
+.receiver .message-time{
+margin-right:40px;
+}
 .receiver {
     float: right;
     width: auto !important;
@@ -400,6 +398,7 @@ body {
     display: inline-block;
     word-wrap: break-word;
     max-width: 100%;
+
 }
 
 .message-main-receiver {
