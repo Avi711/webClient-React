@@ -7,6 +7,9 @@ function SendModals(props) {
     const [image, setImage] = useState("")
     const [record, setRecord] = useState("")
     const [isRecording, setIsRecording] = useState(0);
+    const [error, setError] = useState("");
+    const [recorderror, setRecordError] = useState("");
+
 
     const videoRef = useRef(null);
     const photoRef = useRef(null);
@@ -32,6 +35,11 @@ function SendModals(props) {
     const sendImage = function (e) {
         e.preventDefault();
         var time = new Date();
+        if (image === "") {
+            setError("miss");
+            return;
+        }
+
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
         props.currentChat.push({ sender: props.curUser, message: <img style={{ width: "100%", marginBottom: "0.3rem" }} src={image}></img>, time: curTime })
         props.setInputText(!props.inputText)
@@ -85,27 +93,47 @@ function SendModals(props) {
                     let blob = new Blob(items);
                     let audio_url = URL.createObjectURL(blob);
                     let audio = new Audio(audio_url);
+                    audio.style.width = "100%";
                     audio.setAttribute("controls", 1);
                     document.getElementById('my_record').appendChild(audio);
                     setRecord(audio_url)
                 });
+                
                 document.getElementById('stopRecord').onclick = () => {
                     recorder.stop()
                     document.getElementById("msg").innerHTML = "";
                 }
+
+                document.getElementById('close-record-modal').onclick = () => {
+                    recorder.stop();
+                    document.getElementById("msg").innerHTML = "";
+
+
+                }
+
+
             });
 
 
     }
 
+
+
+
     const sendRecord = function (e) {
+        
         e.preventDefault();
         var time = new Date();
+        if (record === "") {
+            setRecordError("miss");
+            return;
+        }
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
         props.currentChat.push({ sender: props.curUser, message: <audio style={{ maxWidth: '100%' }} preload="auto" src={record} controls="1"></audio>, time: curTime })
         props.setInputText(!props.inputText)
         document.getElementById("close-record-modal").click();
         document.getElementById("chat-record").reset();
+
     }
 
 
@@ -124,6 +152,7 @@ function SendModals(props) {
                         </div>
                         <form id="chat-image" onSubmit={sendImage}>
                             <div className="modal-body">
+                                {(error === "miss") ? (<div className="alert alert-danger">Please pick a picture.</div>) : ""}
 
                                 <video ref={videoRef}></video>
                                 <canvas ref={photoRef}></canvas>
@@ -151,14 +180,19 @@ function SendModals(props) {
                         </div>
                         <form id="chat-record" onSubmit={sendRecord}>
                             <div className="modal-body">
-                            <div class="center1" style={{marginLeft: '-' ,marginLeft: '-', marginLeft: '0px'}}>
-                                    <button className="zoom" type="button" onClick={start_record} style={{ marginLeft:'35%',background: 'url(https://webaudiodemos.appspot.com/AudioRecorder/img/mic128.png)', width: '100px', height: '130px', border: 'none' }} id="satrt_record" />
-                                    <div  ><button style={{width:'100%'}} className="btn btn-danger" type="button" id="stopRecord">Stop</button></div>
+
+                                <div class="center1" style={{ marginLeft: '-', marginLeft: '-', marginLeft: '0px' }}>
+                                    <button className="zoom" type="button" onClick={start_record} style={{ marginLeft: '35%', background: 'url(https://webaudiodemos.appspot.com/AudioRecorder/img/mic128.png)', width: '100px', height: '130px', border: 'none' }} id="satrt_record" />
+                                    {(recorderror === "miss") ? (<div className="alert alert-danger">Please record or choos a file.</div>) : ""}
+
                                     <span style={{ width: '100%' }} id="msg"></span>
-                                    <div  id="my_record"></div>
+                                    <div style={{ width: '100%' }} id="my_record"></div>
 
                                 </div>
+                                <br></br>
 
+
+                                <div  ><button style={{ width: '100%' }} className="btn btn-danger" type="button" id="stopRecord">Stop</button></div>
 
                                 <hr className="solid"></hr>
                                 <label>Choose a file&nbsp;</label>
@@ -166,16 +200,16 @@ function SendModals(props) {
                             </div>
                             <div className="modal-footer">
                                 <button
-                                 type="button" className="btn btn-secondary" id="close-record-modal" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-success">Send</button>
+                                    type="button" className="btn btn-secondary" id="close-record-modal" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" className="btn btn-success">Send</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </div>
-        </div >
+                </div>
+            </div >
 
-    </>
-)
+        </>
+    )
 }
 
 export default SendModals
