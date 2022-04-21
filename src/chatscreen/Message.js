@@ -1,4 +1,5 @@
 import React from 'react'
+import {timeToString} from '../mainPage/Contact';
 
 function Message(props) {
     let class_name1 ="col-sm-12 message-main-receiver" ;
@@ -18,7 +19,7 @@ function Message(props) {
                         {props.message}
                     </div>
                     <span className="message-time pull-right">
-                        {props.time}
+                        {timeToString(props.time)}
                     </span>
                 </div>
             </div>

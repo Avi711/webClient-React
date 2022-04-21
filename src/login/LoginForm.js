@@ -15,8 +15,8 @@ function LoginForm(props) {
             return;
         }
         for (let i of tempUsers) {
-          if (details.username == i.username && details.password == i.password) {
-            props.user(details.username)
+          if (details.username.toLowerCase() == i.username.toLowerCase() && details.password == i.password) {
+            props.user(details.username.toLowerCase())
             setError("no");
             navigate("/main");
             return;

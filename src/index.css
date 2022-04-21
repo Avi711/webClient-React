@@ -35,13 +35,11 @@ body {
     margin-right: auto;
     
 
-
-
 }
-.center1 {
-    position: relative;
-    
-    margin-left: 35%;
+.voice-modal {
+    display: flex;
+    flex-direction: column;   
+    align-items: center; 
   }
 
 .margin_left {
@@ -384,9 +382,7 @@ body {
     color: #999999;
 
 }
-.receiver .message-time{
-margin-right:40px;
-}
+
 .receiver {
     float: right;
     width: auto !important;
@@ -397,7 +393,7 @@ margin-right:40px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
     display: inline-block;
     word-wrap: break-word;
-    max-width: 100%;
+    max-width: 70%;
 
 }
 

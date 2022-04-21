@@ -35,7 +35,7 @@ function RegisterForm() {
             return -1;
         }
         for (let i of tempUsers) {
-            if (details.username === i.username) {
+            if (details.username.toLowerCase() === i.username.toLowerCase()) {
                 setError("yes");
                 return -1;
             }
