@@ -1,3 +1,14 @@
+There are 6 built in usernames with the following data:
+1. username: avi77, password 123456, displayname: avi
+2. username: dan77, password 123456, displayname: avi
+3. username: kehat77, password 123456, displayname: avi
+5. username: or77, password 123456, displayname: avi
+5. username: rodin77, password 123456, displayname: avi
+6. username: shirin77, password 123456, displayname: avi
+
+some of them have already active chats, while other don't.
+when logged in you would be able to add only registered usernames. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
