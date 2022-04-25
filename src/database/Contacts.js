@@ -25,6 +25,22 @@ const Contacts = [
       { contactName: 'shirin', displayname:'shirin', lastMessage: 'whats up ?', time: 1650554845894, image : "profile5.png", chat:  dan77kehat77 },
       ]
     },
+    {
+      username: "kehat77",
+      userContacts: []
+    },
+    {
+      username: "or77",
+      userContacts: []
+    },
+    {
+      username: "rodin77",
+      userContacts: []
+    },
+    {
+      username: "shirin77",
+      userContacts: []
+    },
   ]
 
 export default Contacts;

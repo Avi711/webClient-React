@@ -42,7 +42,7 @@ function AddingContact(props) {
         }
 
 
-        const contact = { contactName: obj_user.username, displayname: obj_user.displayname, lastMessage: '', time: '', image: obj_user.image, chat: [] }
+        const contact = { contactName: obj_user.username, displayname: obj_user.displayname, lastMessage: '', time: new Date(), image: obj_user.image, chat: [] }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
         props.setInputText(!props.inputText)

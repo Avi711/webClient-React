@@ -3,25 +3,38 @@ import Message from './Message';
 import SendModals from './SendModals';
 
 
-
-
-
 function ChatScreen(props) {
 
 
 
-    const currentChat = props.userContacts.find(o => o.contactName == props.chatWith[0]).chat;
+    const chatUserObj = props.userContacts.find(o => o.contactName == props.chatWith[0])
+    const currentChat = chatUserObj.chat;
 
-    const chatList = currentChat.slice(0).reverse().map((message, key) => { if (message.sender == props.curUser) return <Message {...message} type="sender" key={key} />; else return <Message {...message} type="receiver" key={key} />; });
 
-    // (message.sender == props.curUser)
+    var options = { weekday: 'long', month: 'long', day: 'numeric' };
+    let tempDate = (new Date(1550553845894)).toLocaleDateString("en-US", options);
+    const chatList = currentChat.slice(0).map((message, key) => {
+        let currentDate = (new Date(message.time)).toLocaleDateString("en-US", options);
+        if (message.sender == props.curUser) {
+            if (currentDate === tempDate)
+                return (<Message {...message} type="sender" flag={0} key={key} />);
+            else {
+                tempDate = currentDate;
+                return (<Message {...message} type="sender" flag={1} date={currentDate} key={key} />);
+            }
+        }
+        else {
+            if (currentDate === tempDate)
+                return (<Message {...message} type="receiver" flag={0} key={key} />);
+            else {
+                tempDate = currentDate;
+                return (<Message {...message} type="receiver" flag={1} date={currentDate} key={key} />);
+            }
+        }
+    });
 
     const openMenu = function () {
         var e = document.getElementById("send-menu");
-        // if (e.style.display == 'block')
-        //      e.style.display = 'none';
-        //  else
-        //      e.style.display = 'block';
     }
 
     const searchBox = useRef(null)
@@ -33,19 +46,28 @@ function ChatScreen(props) {
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
         currentChat.push({ sender: props.curUser, message: searchBox.current.value, time: time.getTime() })
+        chatUserObj.time = time.getTime();
         //setMessages(!messages)
         //<audio id="player" controls></audio>
         document.getElementById("message-input").value = document.getElementById("message-input").defaultValue;
         props.setInputText(!props.inputText)
+        setTimeout(() => { document.getElementById(props.chatWith[0]).click(); }, 10);
     }
+
+    function updateScroll() {
+        setTimeout(() => {
+            var element = document.getElementById("all-messages1");
+            element.scrollTop = element.scrollHeight;
+        }, 1);
+    }
+
 
     return (
         <>
             <div className="col-7 four" >
-                <div className='all-messages'>
+                <div id='all-messages1' className='all-messages'>
                     {chatList}
-
-
+                    {updateScroll()}
                 </div>
 
                 <div className="row message-box p-3">
@@ -70,15 +92,15 @@ function ChatScreen(props) {
                                 <path d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z" />
                             </svg></a>
 
-                            <a className="zoom"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-geo-alt " viewBox="0 0 16 16">
-                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            <a data-bs-toggle="modal" data-bs-target="#take-video-photo" className="zoom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-record-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             </svg></a>
                         </div>
                     </div>
-                    <SendModals currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser}/>
+                    <SendModals currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj} />
                     <div id="message-form">
-                        <form onSubmit={sendMessage} style={{display: 'flex'}}>
+                        <form onSubmit={sendMessage} style={{ display: 'flex' }}>
 
                             <input type="text" id="message-input" className="form-control" placeholder="Write message..." ref={searchBox} />
                             <button type='submit' className="button-solid zoom"><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
@@ -90,8 +112,6 @@ function ChatScreen(props) {
                     </span> */}
                 </div>
             </div>
-
-
         </>
     )
 }

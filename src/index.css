@@ -230,7 +230,7 @@ ul {
 .all-messages{
     overflow-y: scroll;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: 66vh;
     padding-bottom: 2rem;
 }
@@ -397,9 +397,27 @@ body {
 
 }
 
+.message-date {
+    float: right;
+    width: auto !important;
+    background: #f3f3f3;
+    border-radius: 10px 10px 10px 10px;
+    padding: 4px 10px 7px !important;
+    font-size: 12px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    display: inline-block;
+    word-wrap: break-word;
+    max-width: 70%;
+}
+
 .message-main-receiver {
     padding: 3px 20px !important;
     margin-left: 40% !important;
+    max-width: 60%;
+}
+
+.message-main-date {
+    padding: 3px 20px !important;
     max-width: 60%;
 }
 
@@ -478,3 +496,24 @@ body {
       max-width: 100%;
   }
 
+
+  #video-output video {
+      width: 500px;
+      height: 350px;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+  }
