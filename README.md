@@ -36,11 +36,11 @@ when logged in you would be able to add only registered usernames.
 
 ## Screenshorts
 
-![screenshot1](https://user-images.githubusercontent.com/92336875/165176307-77905b89-f4fe-465b-a2a0-73803522b3d0.jpg =250x)
+![screenshot1](https://user-images.githubusercontent.com/92336875/165176307-77905b89-f4fe-465b-a2a0-73803522b3d0.jpg)
 
-![screenshot](https://user-images.githubusercontent.com/92336875/165176324-3729393c-cc52-44f4-ac5b-dd56198fd982.jpg =250x)
+![screenshot](https://user-images.githubusercontent.com/92336875/165176324-3729393c-cc52-44f4-ac5b-dd56198fd982.jpg)
 
-![screenshot3](https://user-images.githubusercontent.com/92336875/165176333-2b81308a-4e29-46bf-9797-7a08aefda9c0.jpg =250x)
+![screenshot3](https://user-images.githubusercontent.com/92336875/165176333-2b81308a-4e29-46bf-9797-7a08aefda9c0.jpg)
 
 
 
