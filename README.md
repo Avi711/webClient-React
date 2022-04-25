@@ -27,7 +27,7 @@ There are 6 built in usernames with the following data:
 some of them have already active chats, while others don't.\
 when logged in you would be able to add only registered usernames. 
 
-# Features
+## Features
 - Search chat by username.
 - adding new chat by username.
 - Updated last message time and re-ordering contact automatically.
