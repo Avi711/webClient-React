@@ -2,7 +2,7 @@
 #### Avraham Sikirov 318731478
 #### Kehat sudri 
 
-### '1. npm install'
+### `2. npm install`
 Type npm install on your terminal in the project directory.
 
 ### `2. npm start`
