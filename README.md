@@ -2,7 +2,8 @@
 #### Avraham Sikirov 318731478
 #### Kehat sudri 
 
-### `2. npm install`
+### `1. npm install`
+
 Type npm install on your terminal in the project directory.
 
 ### `2. npm start`
@@ -13,9 +14,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+### `3. Login with one of the accounts or register`
 
-
-### '3. Login with one of the accounts or register'
 There are 6 built in usernames with the following data:
 1. username: avi77, password 123456, displayname: avi
 2. username: dan77, password 123456, displayname: dan
