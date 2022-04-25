@@ -2,10 +2,13 @@
 Avraham Sikirov 318731478\
 Kehat sudri 
 
+### `1. npm install`
 
 
+### `2. npm start`
 
 
+### `3. Login with one of the accounts or register`
 There are 6 built in usernames with the following data:
 1. username: avi77, password 123456, displayname: avi
 2. username: dan77, password 123456, displayname: avi
@@ -14,7 +17,7 @@ There are 6 built in usernames with the following data:
 5. username: rodin77, password 123456, displayname: avi
 6. username: shirin77, password 123456, displayname: avi
 
-some of them have already active chats, while other don't.
+some of them have already active chats, while other don't.\
 when logged in you would be able to add only registered usernames. 
 
 # Getting Started with Create React App
