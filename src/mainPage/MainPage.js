@@ -5,7 +5,6 @@ import Contacts from '../database/Contacts';
 import AddingContact from './AddingContact';
 import ChatScreen from '../chatscreen/ChatScreen';
 import ChatScreenHeader from '../chatscreen/ChatScreenHeader';
-import jQuery from 'jquery';
 import tempUsers from '../database/DataBase';
 import { Link } from 'react-router-dom';
 
@@ -21,6 +20,10 @@ function MainPage(props) {
 
     let obj = Contacts.find(o => o.username == curUser);
 
+
+    obj.userContacts.sort((a, b) => (a.time > b.time) ? -1 : 1);
+
+
     let current_tempUsers = tempUsers.find(o => o.username == curUser);
 
     const [inputText, setInputText] = useState(0);
@@ -29,7 +32,7 @@ function MainPage(props) {
     const [chatWith, setChatWith] = useState(0);
 
     const searchBox = useRef(null);
-
+    
     const contactsList = List.map((contact, key) => { if(contact.chat.length > 0) return <Contact {...contact} lastMessage={contact.chat.at(-1).message} time={contact.chat.at(-1).time} key={key} setChatWith={setChatWith} />;
      else  return <Contact {...contact} key={key} setChatWith={setChatWith} /> });
 

@@ -107,7 +107,7 @@ function RegisterForm() {
                     </div>
 
                         <label style={{marginTop: '0.5rem'}}>Choose a profile picture: (Optional)&nbsp;</label>
-                        {(image !== 'profile2.png') ? <img onClick={() => {setImage("profile2.png")}} src={image} className="register-image-button"></img> :
+                        {(image !== 'profile2.png') ? <img onClick={() => {setImage("profile2.png")}} src={image} className="register-image-button profile-image"></img> :
                             <button onClick={(e) => { e.preventDefault(); imageRef.current.click(); }} className='register-image-button'>Add Image</button>}
                         <input ref={imageRef} style={{ display: 'none' }} onChange={photo} type="file"
                             id="profile_pic" name="profile_pic"
