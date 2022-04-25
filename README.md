@@ -4,7 +4,7 @@
 
 ### `1. npm install`
 
-Type npm install on your terminal in the project directory.
+Type 'npm install' on your terminal in the project directory.
 
 ### `2. npm start`
 
