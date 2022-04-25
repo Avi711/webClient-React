@@ -108,7 +108,7 @@ function MainPage(props) {
                     </div>
                     {(chatWith) ? <ChatScreen curUser={curUser} chatWith={chatWith} userContacts={obj.userContacts} setInputText={setInputText} inputText={inputText} /> : <div className="col-7" style={{ backgroundColor: 'white', borderBottomRightRadius:'1rem' }}></div>}
                 </div>
-                <Link to="/">click me</Link>
+                {/* <Link to="/">click me</Link> */}
             </div>
             </div>
             
