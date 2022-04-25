@@ -2,10 +2,10 @@
 Avraham Sikirov 318731478\
 Kehat sudri 
 
-# `1. npm install`
+### 1. npm install
 
 
-# `2. npm start`
+### 2. npm start
 
 
 ### `3. Login with one of the accounts or register`
