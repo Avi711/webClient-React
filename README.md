@@ -1,6 +1,6 @@
 # Avraham's and keht's WebClient.
-Avraham Sikirov 318731478\
-Kehat sudri 
+#### Avraham Sikirov 318731478\
+#### Kehat sudri 
 
 ### 1. npm install
 
@@ -8,7 +8,7 @@ Kehat sudri
 ### 2. npm start
 
 
-### `3. Login with one of the accounts or register`
+### 3. Login with one of the accounts or register
 There are 6 built in usernames with the following data:
 1. username: avi77, password 123456, displayname: avi
 2. username: dan77, password 123456, displayname: avi
@@ -21,8 +21,11 @@ some of them have already active chats, while others don't.\
 when logged in you would be able to add only registered usernames. 
 
 # Features
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Search chat by username.
+- adding new chat by username.
+- Updated last message time and re-ordering contact automatically.
+- Uploading and sending voice, video and image messages.
+- Capturing image and video from camera device.
 
 ## Available Scripts
 
