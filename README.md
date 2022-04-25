@@ -20,7 +20,7 @@ There are 6 built in usernames with the following data:
 some of them have already active chats, while others don't.\
 when logged in you would be able to add only registered usernames. 
 
-# Getting Started with Create React App
+# Features
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
