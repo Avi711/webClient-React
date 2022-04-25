@@ -26,9 +26,6 @@ function Message(props) {
     }
 
     return (
-
-
-
         <>
         {(props.flag === 1) ? printDate() : "" }
         <div className="row message-body">
@@ -43,11 +40,7 @@ function Message(props) {
                 </div>
             </div>
         </div>
-
-        
         </>
-
-
     )
 }
 

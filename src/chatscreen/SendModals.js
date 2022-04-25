@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react"
 import React from 'react'
-import $ from 'jquery'
-import { wait } from "@testing-library/user-event/dist/utils";
 
 
 function SendModals(props) {
@@ -14,6 +12,7 @@ function SendModals(props) {
 
 
     const videoRef = useRef(null);
+    const videoRef2 = useRef(null);
     const photoRef = useRef(null);
 
 
@@ -75,7 +74,8 @@ function SendModals(props) {
         props.currentChat.push({ sender: props.curUser, message: <video style={{ width: "100%", marginBottom: "0.1rem" }} src={video} controls></video>, time: time.getTime() })
         props.chatUserObj.time = time.getTime();
         setTimeout(() => { document.getElementById(props.chatUserObj.contactName).click(); }, 10);
-        document.getElementById("close-video-modal2").click();
+        document.getElementById("close-video-modal").click();
+        document.getElementById("close-record-video-modal").click();
         props.setInputText(!props.inputText)
     }
 
@@ -97,14 +97,29 @@ function SendModals(props) {
     }
 
 
-    function getVideo() {
-        navigator.mediaDevices.getUserMedia({ video: { width: 1920, height: 1080 } }).then(stream => {
-            let video = videoRef.current;
-            video.srcObject = stream;
-            video.play();
-        }).catch(err => { console.error(err); })
+    // function getVideo() {
+    //     let video = videoRef.current;
+    //     navigator.mediaDevices.getUserMedia({ video: { width: 1920, height: 1080 } }).then(stream => {
+    //         video.srcObject = stream;
+    //         video.play();
+    //     }).catch(err => { console.error(err); })
+    // }
+    // useEffect(() => { getVideo(); }, [videoRef]);
+
+
+    function showVideo(ref) {
+        let video = ref.current;
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+                document.getElementById("send-image-modal").addEventListener('hidden.bs.modal', () => {
+                    stream.getTracks().forEach(track => track.stop())
+                })
+                video.srcObject = stream;
+                video.play();
+                video.volume = 0;
+            })
+        }
     }
-    useEffect(() => { getVideo(); }, [videoRef]);
 
 
     function start_record() {
@@ -163,7 +178,7 @@ function SendModals(props) {
         document.getElementById('retake-image').style.display = 'block';
         const width = 414;
         const height = 414 / (16 / 9);
-        let video = videoRef.current;
+        let video = videoRef2.current;
         let photo = photoRef.current;
 
         photo.width = width;
@@ -176,7 +191,7 @@ function SendModals(props) {
             document.getElementById('capture-image').style.display = 'block';
             document.getElementById('retake-image').style.display = 'none';
         });
-        
+
 
 
     }
@@ -227,6 +242,8 @@ function SendModals(props) {
         }
     }
 
+    {showVideo(videoRef)}
+    {showVideo(videoRef2)}
 
 
     return (
@@ -247,15 +264,15 @@ function SendModals(props) {
                             <div className="modal-body">
                                 {(imageError === "miss") ? (<div className="alert alert-danger">Please pick a picture.</div>) : ""}
 
-                                 {/* <video ref={videoRef}></video> */}
-                                <canvas style={{display: 'none'}} ref={photoRef}></canvas>
+                                {/* <video ref={videoRef}></video>  */}
+                                <canvas style={{ display: 'none' }} ref={photoRef}></canvas>
                                 <img style={{ maxWidth: "100%" }} src={image}></img>
                                 {/* <button type="button" className="btn btn-secondary" onClick={takePhoto}>take photo</button> */}
                                 {(image == "") ? "" : <hr className="solid"></hr>}
                                 <label>Choose a picture from you device: &nbsp;</label>
                                 <input id="image-input" onChange={photo} type="file" accept="image/png, image/jpeg" />
                                 <div className="separator">Or</div>
-                                <video ref={videoRef} width={500} height={270}></video>
+                                <video ref={videoRef2} width={500} height={270}></video>
                                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                                     <button type="button" id="capture-image" onClick={takePhoto} className="btn btn-danger">Capture</button>
                                     <button type="button" id="retake-image" onClick={retakePhoto} className="btn btn-danger" style={{ display: 'none' }}>Retake</button>
@@ -284,11 +301,8 @@ function SendModals(props) {
                                 {(videoError === "miss") ? (<div className="alert alert-danger">Please record or choos a file.</div>) : ""}
                                 <div className="voice-modal" style={{ marginLeft: '-', marginLeft: '-', marginLeft: '0px' }}>
                                     <button className="zoom" type="button" onClick={start_record} style={{ marginBottom: '2%', background: 'url(https://webaudiodemos.appspot.com/AudioRecorder/img/mic128.png)', width: '128px', height: '130px', border: 'none' }} id="satrt_record" />
-
                                     <div  ><button style={{ width: '100%' }} className="btn btn-danger" type="button" id="stop-record">Stop</button></div>
                                     <span id="msg"></span>
-
-
                                 </div>
                                 <br></br>
                                 <div style={{ width: '100%' }} id="my_record"></div>
@@ -346,7 +360,7 @@ function SendModals(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">Record video</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" id="close-video-modal2" aria-label="Close"></button>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form id="video-record-form" onSubmit={sendVideo}>
                             <div className="modal-body">
@@ -371,7 +385,7 @@ function SendModals(props) {
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" id="close-video-modal" data-bs-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-secondary" id="close-record-video-modal" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" className="btn btn-success">Send</button>
                             </div>
                         </form>

@@ -57,8 +57,6 @@ function AddingContact(props) {
         document.getElementById("close-adding-contact").click();
         setError(null)
 
-        //document.getElementById(props.contactName).classList.add("toggle-contact-color")
-
     }
 
     return (
