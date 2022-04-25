@@ -17,7 +17,7 @@ There are 6 built in usernames with the following data:
 5. username: rodin77, password 123456, displayname: avi
 6. username: shirin77, password 123456, displayname: avi
 
-some of them have already active chats, while other don't.\
+some of them have already active chats, while others don't.\
 when logged in you would be able to add only registered usernames. 
 
 # Getting Started with Create React App
