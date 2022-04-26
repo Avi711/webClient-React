@@ -5,7 +5,8 @@ import SendModals from './SendModals';
 
 function ChatScreen(props) {
 
-
+    const videoRef = useRef(null);
+    const videoRef2 = useRef(null);
 
     const chatUserObj = props.userContacts.find(o => o.contactName == props.chatWith[0])
     const currentChat = chatUserObj.chat;
@@ -58,9 +59,29 @@ function ChatScreen(props) {
         setTimeout(() => {
             var element = document.getElementById("all-messages1");
             element.scrollTop = element.scrollHeight;
-        }, 1);
+        }, 10);
     }
 
+
+    function showVideo(ref) {
+                    
+        setTimeout(() => {
+            let video = ref.current;
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                    video.volume = 0;
+                    // document.getElementById("send-image-modal").addEventListener('hidden.bs.modal', () => {
+                    //     stream.getTracks().forEach(track => track.stop())
+                    // });
+                    // document.getElementById("record-video-modal").addEventListener('hidden.bs.modal', () => {
+                    //     stream.getTracks().forEach(track => track.stop())
+                    // });
+                })
+            }
+        }, 10);
+    }
 
     return (
         <>
@@ -69,6 +90,7 @@ function ChatScreen(props) {
                     {chatList}
                     {updateScroll()}
                 </div>
+                <SendModals videoRef={videoRef} videoRef2={videoRef2} currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj} />
 
                 <div className="row message-box p-3">
 
@@ -78,7 +100,7 @@ function ChatScreen(props) {
                         </svg></button>
                         <div className="dropdown-menu dropup-content">
 
-                            <a data-bs-toggle="modal" data-bs-target="#send-image-modal" className="zoom"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-image " viewBox="0 0 16 16">
+                            <a data-bs-toggle="modal" data-bs-target="#send-image-modal" className="zoom" onClick={showVideo(videoRef2)}><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-image " viewBox="0 0 16 16">
                                 <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                 <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
                             </svg></a>
@@ -92,13 +114,12 @@ function ChatScreen(props) {
                                 <path d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556v4.35zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H2z" />
                             </svg></a>
 
-                            <a data-bs-toggle="modal" data-bs-target="#take-video-photo" className="zoom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-record-circle" viewBox="0 0 16 16">
+                            <a data-bs-toggle="modal" data-bs-target="#record-video-modal" className="zoom" onClick={showVideo(videoRef)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-record-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                             </svg></a>
                         </div>
                     </div>
-                    <SendModals currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj} />
                     <div id="message-form">
                         <form onSubmit={sendMessage} style={{ display: 'flex' }}>
 

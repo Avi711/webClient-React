@@ -9,7 +9,7 @@ import tempUsers from '../database/DataBase';
 function RegisterForm() {
 
 
-    const [details, setDetails] = useState({ displayname: "", username: "", password: "", });
+    const [details, setDetails] = useState({ displayname: "", username: "", password: "", repassword: "" });
     const [image, setImage] = useState("profile2.png")
     const [error, setError] = useState("");
     const imageRef = useRef();
@@ -43,13 +43,20 @@ function RegisterForm() {
 
         if (details.password.search(/[a-z]/i) < 0) {
             setError("letter");
-            return -1
+            return -1;
         }
         if (details.password.search(/[0-9]/) < 0) {
             setError("digit");
-            return -1
+            return -1;
         }
+
+        if(details.password != details.repassword) {
+            setError("match");
+            return -1;
+        }
+
         return 0;
+
 
     }
 
@@ -90,6 +97,7 @@ function RegisterForm() {
                     {(error === "length") ? (<div className="alert alert-danger">Password should contain at least 8 characters.</div>) : ""}
                     {(error === "letter") ? (<div className="alert alert-danger">Your password must contain at least one letter.</div>) : ""}
                     {(error === "digit") ? (<div className="alert alert-danger">Your password must contain at least one digit..</div>) : ""}
+                    {(error === "match") ? (<div className="alert alert-danger">Passwords don't match</div>) : ""}
 
                     <div className="form-floating mb-3">
                         <input className="form-control login-register-form" id="floatingInput" placeholder="name@example.com" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username}></input>
@@ -99,6 +107,10 @@ function RegisterForm() {
                     <div className="form-floating">
                         <input type="password" className="form-control login-register-form" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password}></input>
                         <label>Password</label>
+                    </div>
+                    <div className="form-floating">
+                        <input type="password" className="form-control login-register-form" id="floatingPassword" placeholder="Password" onChange={e => setDetails({ ...details, repassword: e.target.value })} value={details.repassword}></input>
+                        <label>Confirm password</label>
                     </div>
                     <br></br>
                     <div className="form-floating">
