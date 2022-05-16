@@ -26,7 +26,7 @@ function SendModals(props) {
         document.getElementById("image-form").reset();
         document.getElementById("video-form").reset();
         document.getElementById("voice-form").reset();
-        document.getElementById('video-output').innerHTML = "";
+        //document.getElementById('video-output').innerHTML = "";
     });
 
     function removeLastRecord() {
@@ -69,7 +69,7 @@ function SendModals(props) {
         }
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        props.currentChat.push({ sender: props.curUser, message: <video style={{ width: "100%", marginBottom: "0.1rem" }} src={video} controls></video>, time: time.getTime() })
+        props.currentChat.push({ sender: true, message: <video style={{ width: "100%", marginBottom: "0.1rem" }} src={video} controls></video>, time: time.getTime() })
         props.chatUserObj.time = time.getTime();
         setTimeout(() => { document.getElementById(props.chatUserObj.contactName).click(); }, 10);
         document.getElementById("close-video-modal").click();
@@ -87,7 +87,7 @@ function SendModals(props) {
         }
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        props.currentChat.push({ sender: props.curUser, message: <img style={{ width: "100%", marginBottom: "0.3rem" }} src={image}></img>, time: time.getTime() })
+        props.currentChat.push({ sender: true, message: <img style={{ width: "100%", marginBottom: "0.3rem" }} src={image}></img>, time: time.getTime() })
         props.chatUserObj.time = time.getTime();
         setTimeout(() => { document.getElementById(props.chatUserObj.contactName).click(); }, 10);
         props.setInputText(!props.inputText)
@@ -148,7 +148,7 @@ function SendModals(props) {
             return;
         }
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        props.currentChat.push({ sender: props.curUser, message: <audio style={{ maxWidth: '100%' }} preload="auto" src={record} controls="1"></audio>, time: time.getTime() })
+        props.currentChat.push({ sender: true, message: <audio style={{ maxWidth: '100%' }} preload="auto" src={record} controls="1"></audio>, time: time.getTime() })
         props.chatUserObj.time = time.getTime();
         setTimeout(() => { document.getElementById(props.chatUserObj.contactName).click(); }, 10);
         props.setInputText(!props.inputText)
@@ -193,7 +193,7 @@ function SendModals(props) {
         document.getElementById('video-record-form').reset();
         setVideoError("");
 
-        document.getElementById('video-output').innerHTML = "";
+        //document.getElementById('video-output').innerHTML = "";
         var video = props.videoRef.current;
         var parts = []
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -212,14 +212,14 @@ function SendModals(props) {
                 document.getElementById("stop-record-video").onclick = () => {
                     document.getElementById('stop-record-video').style.display = 'none';
                     document.getElementById('start-record-video').style.display = 'block';
-                    document.getElementById('video-output').innerHTML = "";
+                    //document.getElementById('video-output').innerHTML = "";
                     const blob = new Blob(parts, { type: 'video/webm' });
                     const url = URL.createObjectURL(blob);
                     var video = document.createElement('video');
                     video.controls = true;
                     video.src = url;
                     setVideo(video.src);
-                    document.getElementById('video-output').appendChild(video);
+                   // document.getElementById('video-output').appendChild(video);
 
                 };
             })
@@ -356,6 +356,7 @@ function SendModals(props) {
                                 <img style={{ maxWidth: "100%" }} src={image}></img>
                                 <hr className="solid"></hr>
                                 <div id="video-output"></div>
+                                {(video == "") ? "" : <video src={video} controls></video>}
                                 {/* <canvas ref={photoRef}></canvas> */}
                                 <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                                     {/* <button type="button" onClick={takePhoto} className="btn btn-secondary">Capture</button> */}
