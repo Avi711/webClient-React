@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import tempUsers from '../database/DataBase';
+import axios from 'axios';
 
 function LoginForm(props) {
 
@@ -9,30 +10,69 @@ function LoginForm(props) {
     let navigate = useNavigate();
 
 
-    const Login = details => {
-        if(details.username == "" || details.password == "") {
+    async function Login() {
+        if (details.username == "" || details.password == "") {
             setError("miss");
             return;
         }
         for (let i of tempUsers) {
-          if (details.username.toLowerCase() == i.username.toLowerCase() && details.password == i.password) {
+            // if (details.username.toLowerCase() == i.username.toLowerCase() && details.password == i.password) {
             props.user(details.username.toLowerCase())
             setError("no");
+            const loged = await serverLogin({ Username: details.username, Password: details.password });
+            if (loged === -1) {
+                setError("yes")
+                return;
+            }
+            getUser().then(i => {localStorage.setItem('user-image', i)});
+            localStorage.setItem('user', details.username.toLowerCase());
             navigate("/main");
             return;
-          }
+            //   }
         }
         setError("yes")
     }
 
     const logout = () => {
         //setUser({ username: "", password: "" });
-      }
-      
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
         Login(details);
     };
+
+    async function serverLogin(obj) {
+        // const res = await fetch('https://localhost:44306/api/Login', {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify(obj),
+        // });
+        // const data = await res.json();
+        // console.log(data.token);
+        // return res.status;
+
+        var status = 0;
+
+        await axios.post('https://localhost:44306/api/Login', obj)
+            .then(res => {
+                localStorage.setItem('token', res.data);
+            })
+            .catch(err => {
+                status = -1;
+            })
+        return status;
+    }
+
+    async function getUser() {
+        const res = await fetch('https://localhost:44306/api/Login/user', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
+        });
+        const data = await res.json();
+        return data.image;
+    }
+
 
     return (
         <>
@@ -58,7 +98,7 @@ function LoginForm(props) {
                     <hr></hr>
                     <span className="center-text">Not registerd? <Link to="/register">click here</Link> to register.</span>
                 </form>
-                
+
             </div>
 
         </>

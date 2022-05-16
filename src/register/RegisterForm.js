@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Contacts from '../database/Contacts';
 import tempUsers from '../database/DataBase';
@@ -13,6 +13,7 @@ function RegisterForm() {
     const [image, setImage] = useState("profile2.png")
     const [error, setError] = useState("");
     const imageRef = useRef();
+
 
 
     function photo(event) {
@@ -60,7 +61,7 @@ function RegisterForm() {
 
     }
 
-    const onSubmit = (e) => {
+    async function onSubmit(e) {
         e.preventDefault();
 
         if (validate() == -1)
@@ -77,10 +78,28 @@ function RegisterForm() {
             username: details.username,
             userContacts: []
         }
+
+        const d = await serverRegister(obj);
+
+        console.log(d);
+        if (d !== 200) {
+            setError("yes");
+            return;
+        }
+
         tempUsers.push(obj);
         Contacts.push(newContact);
     }
 
+    async function serverRegister(obj) {
+        const res = await fetch('https://localhost:44306/api/Register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(obj)
+            
+        });
+        return res.status;
+    }
 
     return (
         <>

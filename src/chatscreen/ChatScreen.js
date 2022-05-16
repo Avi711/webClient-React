@@ -16,7 +16,7 @@ function ChatScreen(props) {
     let tempDate = (new Date(1550553845894)).toLocaleDateString("en-US", options);
     const chatList = currentChat.slice(0).map((message, key) => {
         let currentDate = (new Date(message.time)).toLocaleDateString("en-US", options);
-        if (message.sender == props.curUser) {
+        if (message.sender == true) {
             if (currentDate === tempDate)
                 return (<Message {...message} type="sender" flag={0} key={key} />);
             else {
@@ -46,7 +46,7 @@ function ChatScreen(props) {
             return;
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        currentChat.push({ sender: props.curUser, message: searchBox.current.value, time: time.getTime() })
+        currentChat.push({ sender: true, message: searchBox.current.value, time: time.getTime() })
         chatUserObj.time = time.getTime();
         //setMessages(!messages)
         //<audio id="player" controls></audio>
