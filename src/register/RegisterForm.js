@@ -67,7 +67,6 @@ function RegisterForm() {
         if (validate() == -1)
             return;
 
-        setError("no")
         var obj = {
             username: details.username,
             password: details.password,
@@ -80,25 +79,31 @@ function RegisterForm() {
         }
 
         const d = await serverRegister(obj);
-
-        console.log(d);
-        if (d !== 200) {
+        if (d === -1) {
             setError("yes");
+            return;
+        }
+        if(d === -2) {
+            setError("server-down")
             return;
         }
 
         tempUsers.push(obj);
         Contacts.push(newContact);
+        setError("no");
     }
 
     async function serverRegister(obj) {
-        const res = await fetch('https://localhost:44306/api/Register', {
+        var res = -1;
+        await fetch('https://localhost:44306/api/Register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(obj)
             
-        });
-        return res.status;
+        })
+        .then(p => {if(p.status === 200) res = 0;})
+        .catch(p => {res = -2});
+        return res;
     }
 
     return (
@@ -117,6 +122,7 @@ function RegisterForm() {
                     {(error === "letter") ? (<div className="alert alert-danger">Your password must contain at least one letter.</div>) : ""}
                     {(error === "digit") ? (<div className="alert alert-danger">Your password must contain at least one digit..</div>) : ""}
                     {(error === "match") ? (<div className="alert alert-danger">Passwords don't match</div>) : ""}
+                    {(error === "server-down") ? (<div className="alert alert-danger">Can't connect to server</div>) : ""}
 
                     <div className="form-floating mb-3">
                         <input className="form-control login-register-form" id="floatingInput" placeholder="name@example.com" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username}></input>
