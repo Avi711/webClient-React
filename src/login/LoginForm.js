@@ -20,8 +20,8 @@ function LoginForm(props) {
             props.user(details.username.toLowerCase())
             setError("no");
             const loged = await serverLogin({ Username: details.username, Password: details.password });
-            if (loged === -1) {
-                setError("yes")
+            if (loged === -2) {
+                setError("server-down")
                 return;
             }
             getUser().then(i => {localStorage.setItem('user-image', i)});
@@ -59,13 +59,13 @@ function LoginForm(props) {
                 localStorage.setItem('token', res.data);
             })
             .catch(err => {
-                status = -1;
+                status = -2;
             })
         return status;
     }
 
     async function getUser() {
-        const res = await fetch('https://localhost:44306/api/Login/user', {
+        const res = await fetch('https://localhost:44306/api/user', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
         });
@@ -84,6 +84,7 @@ function LoginForm(props) {
                 <form onSubmit={onSubmit} className="login-register-form">
                     {(error == "yes") ? (<div className="alert alert-danger">Username or Password incorrect</div>) : ""}
                     {(error == "miss") ? (<div className="alert alert-danger">Please fill in all the details</div>) : ""}
+                    {(error === "server-down") ? (<div className="alert alert-danger">Can't connect to server</div>) : ""}
                     <div className="form-floating mb-3">
                         <input className="form-control login-register-form" id="floatingInput" placeholder="name@example.com" onChange={e => setDetails({ ...details, username: e.target.value })} value={details.username}></input>
                         <label >Username</label>
