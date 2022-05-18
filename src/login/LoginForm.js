@@ -20,8 +20,12 @@ function LoginForm(props) {
             props.user(details.username.toLowerCase())
             setError("no");
             const loged = await serverLogin({ Username: details.username, Password: details.password });
-            if (loged === -2) {
+            if (loged == -2) {
                 setError("server-down")
+                return;
+            }
+            if (loged == -1) {
+                setError("yes")
                 return;
             }
             getUser().then(i => {localStorage.setItem('user-image', i)});
@@ -59,7 +63,10 @@ function LoginForm(props) {
                 localStorage.setItem('token', res.data);
             })
             .catch(err => {
-                status = -2;
+                if(err.response.status == 400)
+                    status = -1;
+                else 
+                    status = -2;
             })
         return status;
     }
