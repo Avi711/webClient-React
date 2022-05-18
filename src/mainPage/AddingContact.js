@@ -57,7 +57,40 @@ function AddingContact(props) {
         document.getElementById("close-adding-contact").click();
         setError(null)
 
+        userServerUpdateAddingContact(contact , server);
+        contactServerUpdateAddingContact(server);
     }
+
+    ////////// update both user and contact server for adding new contact //////////////
+    async function userServerUpdateAddingContact(obj , server) {
+        const res = await fetch(`https://localhost:7018/api/contacts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
+            body : JSON.stringify({
+                "id" : obj.contactName ,
+                "name" : obj.displayName ,
+                "server" : server
+            })
+        });
+        const data = await res.json();
+        return data.image;
+    
+    } 
+    async function contactServerUpdateAddingContact(server) {
+        const res = await fetch(`https://localhost:7018/api/invitations`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',},
+            body : JSON.stringify({
+                "from" : props.curUser,
+                "to" : props.chatWith[0],
+                "server" : server
+            })
+        });
+        const data = await res.json();
+        return data.image;
+    
+    } 
+    ////////////////////////
 
     return (
         <div className="modal fade" id="add-contact-modal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">

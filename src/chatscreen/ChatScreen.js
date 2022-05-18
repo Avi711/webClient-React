@@ -46,15 +46,47 @@ function ChatScreen(props) {
             return;
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        currentChat.push({ sender: true, message: searchBox.current.value, time: time.getTime() })
+        var msg = { sender: true, message: searchBox.current.value, time: time.getTime() }
+        currentChat.push(msg);
         chatUserObj.time = time.getTime();
         //setMessages(!messages)
         //<audio id="player" controls></audio>
         document.getElementById("message-input").value = document.getElementById("message-input").defaultValue;
         props.setInputText(!props.inputText)
         setTimeout(() => { document.getElementById(props.chatWith[0]).click(); }, 10);
-    }
+        
+        userServerUpdateMessage(msg.message);//?
+        contactServerUpdateMessage(msg.message);
 
+    }
+    ////////// update both user and contact server for a new message //////////////
+    async function userServerUpdateMessage(obj) {
+        const res = await fetch(`https://localhost:7018/api/contacts/${props.chatWith[0]}/messages`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
+            body : JSON.stringify({
+                "content" : obj
+            })
+        });
+        const data = await res.json();
+        return data.image;
+    
+    } 
+    async function contactServerUpdateMessage(content) {
+        const res = await fetch(`https://localhost:7018/api/transfer`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',},
+            body : JSON.stringify({
+                "from" : props.curUser,
+                "to" : props.chatWith[0],
+                "content" : content
+            })
+        });
+        const data = await res.json();
+        return data.image;
+    
+    } 
+    ////////////////////////
     function updateScroll() {
         setTimeout(() => {
             var element = document.getElementById("all-messages1");
