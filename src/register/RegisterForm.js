@@ -95,7 +95,7 @@ function RegisterForm() {
 
     async function serverRegister(obj) {
         var res = -1;
-        await fetch('https://localhost:7018/api/Register', {
+        await fetch('https://localhost:44306/api/Register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(obj)
