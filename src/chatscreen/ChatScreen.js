@@ -3,6 +3,9 @@ import Message from './Message';
 import SendModals from './SendModals';
 
 
+const myServer = "https://localhost:44306";
+
+
 function ChatScreen(props) {
 
     const videoRef = useRef(null);
@@ -55,25 +58,24 @@ function ChatScreen(props) {
         props.setInputText(!props.inputText)
         setTimeout(() => { document.getElementById(props.chatWith[0]).click(); }, 10);
         
-        userServerUpdateMessage(msg.message);//?
+        userServerUpdateMessage(msg.message);
         contactServerUpdateMessage(msg.message);
 
     }
     ////////// update both user and contact server for a new message //////////////
-    async function userServerUpdateMessage(obj) {
-        const res = await fetch(`https://localhost:7018/api/contacts/${props.chatWith[0]}/messages`, {
+    async function userServerUpdateMessage(content) {
+        const res = await fetch(`${myServer}/api/contacts/${props.chatWith[0]}/messages`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
             body : JSON.stringify({
-                "content" : obj
+                "content" : content
             })
         });
-        const data = await res.json();
-        return data.image;
+        return res;
     
     } 
     async function contactServerUpdateMessage(content) {
-        const res = await fetch(`https://localhost:7018/api/transfer`, {
+        const res = await fetch(`${myServer}/api/transfer`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',},
             body : JSON.stringify({
@@ -82,8 +84,8 @@ function ChatScreen(props) {
                 "content" : content
             })
         });
-        const data = await res.json();
-        return data.image;
+        console.log(res);
+        return res;
     
     } 
     ////////////////////////
@@ -122,7 +124,10 @@ function ChatScreen(props) {
                     {chatList}
                     {updateScroll()}
                 </div>
-                <SendModals videoRef={videoRef} videoRef2={videoRef2} currentChat={currentChat} inputText={props.inputText} setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj} />
+                <SendModals videoRef={videoRef} videoRef2={videoRef2} currentChat={currentChat} inputText={props.inputText} 
+                            setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj}
+                            userServerUpdateMessage={userServerUpdateMessage} contactServerUpdateMessage={contactServerUpdateMessage}
+                            chatWith={props.chatWith}  />
 
                 <div className="row message-box p-3">
 
@@ -153,7 +158,7 @@ function ChatScreen(props) {
                         </div>
                     </div>
                     <div id="message-form">
-                        <form onSubmit={sendMessage} style={{ display: 'flex' }}>
+                        <form onSubmit={sendMessage} id="message-input-form" style={{ display: 'flex' }}>
 
                             <input type="text" id="message-input" className="form-control" placeholder="Write message..." ref={searchBox} />
                             <button type='submit' className="button-solid zoom"><svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">

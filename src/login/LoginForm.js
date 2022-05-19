@@ -58,7 +58,7 @@ function LoginForm(props) {
 
         var status = 0;
 
-        await axios.post('https://localhost:7018/api/Login', obj)
+        await axios.post('https://localhost:44306/api/Login', obj)
             .then(res => {
                 localStorage.setItem('token', res.data);
             })
@@ -72,7 +72,7 @@ function LoginForm(props) {
     }
 
     async function getUser() {
-        const res = await fetch('https://localhost:7018/api/user', {
+        const res = await fetch('https://localhost:44306/api/user', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
         });

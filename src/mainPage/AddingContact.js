@@ -3,46 +3,57 @@ import Contacts from '../database/Contacts';
 import tempUsers from '../database/DataBase';
 
 
+const myServer = "https://localhost:44306";
+
 
 function AddingContact(props) {
 
     
-    const addBox = useRef(null);
+    const nameBox = useRef(null);
+    const serverBox = useRef(null);
+    const displayNameBox = useRef(null);
 
     const [error, setError] = useState("no");
 
 
 
-    const addConatct = function (e) {
+    async function addConatct (e) {
         e.preventDefault();
         setError("no");
-        if (addBox.current.value == "") {
+        if (nameBox.current.value == "" || serverBox.current.value == "" || displayNameBox.current.value == "") {
             setError("miss");
             return;
         }
         let obj = Contacts.find(o => o.username == props.curUser);
 
-
-
         for (var i = 0; i < obj.userContacts.length; i++) {
-            if (obj.userContacts[i].contactName == addBox.current.value) {
+            if (obj.userContacts[i].contactName == nameBox.current.value) {
                 setError("exists");
                 return;
             }
         }
 
-        let obj_user = tempUsers.find(o => o.username == addBox.current.value);
-        if (obj_user == null) {
-            setError("noUser");
-            return;
-        }
-        if(obj.username == addBox.current.value) {
+         let obj_user = tempUsers.find(o => o.username == nameBox.current.value);
+        // if (obj_user == null) {
+        //     setError("noUser");
+        //     return;
+        // }
+
+        if(obj.username == nameBox.current.value) {
             setError("current");
             return;
         }
 
 
-        const contact = { contactName: obj_user.username, displayname: obj_user.displayname, lastMessage: '', time: new Date(), image: obj_user.image, chat: [] }
+        var check = await contactServerUpdateAddingContact();
+        if(check.status != 200)
+        {
+            setError("contact-server-error")
+            return;
+        }
+        var check = await userServerUpdateAddingContact();
+
+        const contact = { contactName: nameBox.current.value, displayname: displayNameBox.current.value, lastMessage: '', time: new Date(), image: "profile2.png", chat: [] }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
         props.setInputText(!props.inputText)
@@ -56,39 +67,33 @@ function AddingContact(props) {
         setError("success")
         document.getElementById("close-adding-contact").click();
         setError(null)
-
-        userServerUpdateAddingContact(contact , server);
-        contactServerUpdateAddingContact(server);
     }
 
     ////////// update both user and contact server for adding new contact //////////////
-    async function userServerUpdateAddingContact(obj , server) {
-        const res = await fetch(`https://localhost:7018/api/contacts`, {
+    async function userServerUpdateAddingContact() {
+        const res = await fetch(`${myServer}/api/contacts`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
             body : JSON.stringify({
-                "id" : obj.contactName ,
-                "name" : obj.displayName ,
-                "server" : server
+                "id" : nameBox.current.value ,
+                "name" : displayNameBox.current.value ,
+                "server" : serverBox.current.value
             })
         });
-        const data = await res.json();
-        return data.image;
+        return res;
     
     } 
-    async function contactServerUpdateAddingContact(server) {
-        const res = await fetch(`https://localhost:7018/api/invitations`, {
+    async function contactServerUpdateAddingContact() {
+        const res = await fetch(`${myServer}/api/invitations`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',},
             body : JSON.stringify({
                 "from" : props.curUser,
-                "to" : props.chatWith[0],
-                "server" : server
+                "to" : nameBox.current.value,
+                "server" : myServer
             })
         });
-        const data = await res.json();
-        return data.image;
-    
+        return res;
     } 
     ////////////////////////
 
@@ -103,15 +108,22 @@ function AddingContact(props) {
                     <div className="modal-body">
                         <form onSubmit={addConatct} id="adding-form">
                             <div className="mb-3">
+                                {(error == "contact-server-error") ? (<div className="alert alert-danger">Can't connect to contact server OR contact don't exists in this server</div>) : ""}
                                 {(error == "current") ? (<div className="alert alert-danger">You can't add yourself to your contact list</div>) : ""}
                                 {(error == "noUser") ? (<div className="alert alert-danger">There is no user by that name</div>) : ""}
                                 {(error == "exists") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}
                                 {(error == "miss") ? (<div className="alert alert-danger">Please fill User Name</div>) : ""}
-                                {(error == "success") ? (<div className="alert alert-success">{addBox.current.value} added successfully</div>) : ""}
+                                {(error == "success") ? (<div className="alert alert-success">{nameBox.current.value} added successfully</div>) : ""}
 
 
                                 <label htmlFor="recipient-name" className="col-form-label">Username:</label>
-                                <input ref={addBox} type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
+                                <input ref={nameBox} type="text" className="form-control" id="recipient-name" placeholder="Write username here..." />
+
+                                <label htmlFor="recipient-name" className="col-form-label">displayName:</label>
+                                <input ref={displayNameBox} type="text" className="form-control" id="recipient-name" placeholder="Write display name here..." />
+
+                                <label htmlFor="recipient-name" className="col-form-label">Server:</label>
+                                <input ref={serverBox} type="text" className="form-control" id="recipient-name" placeholder="Write server here..." />
                             </div>
                             <div className="modal-footer">
                                 <button type="submit" className="btn btn-success" data-bs-dismiss="llllll">Add contact</button>

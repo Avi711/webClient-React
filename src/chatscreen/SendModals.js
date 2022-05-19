@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import React from 'react'
 
+const myServer = "https://localhost:44306";
+
 
 function SendModals(props) {
     const [image, setImage] = useState("");
@@ -79,7 +81,7 @@ function SendModals(props) {
 
 
 
-    const sendImage = function (e) {
+    async function sendImage(e) {
         e.preventDefault();
         if (image === "") {
             setImageError("miss");
@@ -87,11 +89,12 @@ function SendModals(props) {
         }
         var time = new Date();
         const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-        props.currentChat.push({ sender: true, message: <img style={{ width: "100%", marginBottom: "0.3rem" }} src={image}></img>, time: time.getTime() })
+        const msg = <img style={{ width: "100%", marginBottom: "0.3rem" }} src={image}></img>
+        props.currentChat.push({ sender: true, message: msg, time: time.getTime() })
         props.chatUserObj.time = time.getTime();
         setTimeout(() => { document.getElementById(props.chatUserObj.contactName).click(); }, 10);
         props.setInputText(!props.inputText)
-        document.getElementById("close-image-modal").click();
+        document.getElementById("close-image-modal").click();        
     }
 
 
