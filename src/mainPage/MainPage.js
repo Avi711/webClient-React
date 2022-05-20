@@ -7,6 +7,9 @@ import ChatScreen from '../chatscreen/ChatScreen';
 import ChatScreenHeader from '../chatscreen/ChatScreenHeader';
 import tempUsers from '../database/DataBase';
 import { Link } from 'react-router-dom';
+import connection, { myServer } from '../server';
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+
 
 function MainPage(props) {
 
@@ -27,28 +30,56 @@ function MainPage(props) {
 
     const searchBox = useRef(null);
 
-    useEffect(() => {
+    var con = 0;
 
-        async function bringContacts() {
-            const res = await fetch('https://localhost:44306/api/contacts', {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
-            });
-            const data = await res.json();
-            console.log(data);
-            setServerContactsList(data);
-        }
-        bringContacts()
+    useEffect(() => {
+        bringContacts();
+        MakeConnection();
     }, [])
 
     useEffect(() => {
         convertContacts().then(k => { setList(obj.userContacts) })
     }, [serverContactsList])
 
+    useEffect(() => {
+        setInputText(!inputText);
+    }, [connection.connection])
 
+
+    async function MakeConnection() {
+        connection.connection = new HubConnectionBuilder().withUrl(`${myServer}/myHub`).configureLogging(LogLevel.Information).build();
+        connection.connection.start().then(p => { connection.connection.invoke("MakeConnection", curUser) });
+        console.log("connection on");
+        connection.connection.on('ChangeRecieved', (val, val2) => {
+            console.log("in the connection");
+            console.log(val);
+            console.log(val2);
+            const chatUserObj = obj.userContacts.find(o => o.contactName == val2)
+            const currentChat = chatUserObj.chat;
+            console.log(currentChat);
+            var time = new Date();
+            var msg = { sender: false, message: val, time: time.getTime() }
+            if(msg.time - currentChat[currentChat.length - 1].time < 40) {
+                console.log("not adding");
+                return;
+            }
+            currentChat.push(msg);
+            setInputText(prev => !prev);
+        });
+    }
+
+    async function bringContacts() {
+        const res = await fetch(`${myServer}/api/contacts`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
+        });
+        const data = await res.json();
+        console.log(data);
+        setServerContactsList(data);
+    }
 
     async function bringMessages(contactId) {
-        const res = await fetch(`https://localhost:44306/api/contacts/${contactId}/messages`, {
+        const res = await fetch(`${myServer}/api/contacts/${contactId}/messages`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
         });

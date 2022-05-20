@@ -1,15 +1,37 @@
 import React, { useState, useRef, useEffect, } from 'react'
 import Message from './Message';
 import SendModals from './SendModals';
+import connection, {myServer} from '../server';
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import $ from 'jquery';
+
+$(function () {
+    // console.log("heyyyyyyyyyyy")
+    // var connection = new signalR.hubConnectionBuilder().writeUrl("/myHub").build();
+
+    // connection.start();
+
+    // console.log("hye");
+
+    // $('#message-input-form').submit(() => {
+    //     //console.log('sending: ' + $('textarea').val());
+    //     console.log("heyyyyyy");
+    //     connection.invoke("Changed", "kkkkk");
+    // });
+
+    // connection.on("ChangedRecived", function (value) {
+    //     console.log('recieved: ' + value);
+    //   //  $('textarea').val(value);
+    // });
 
 
-const myServer = "https://localhost:44306";
-
+});
 
 function ChatScreen(props) {
 
     const videoRef = useRef(null);
     const videoRef2 = useRef(null);
+
 
     const chatUserObj = props.userContacts.find(o => o.contactName == props.chatWith[0])
     const currentChat = chatUserObj.chat;
@@ -57,9 +79,10 @@ function ChatScreen(props) {
         document.getElementById("message-input").value = document.getElementById("message-input").defaultValue;
         props.setInputText(!props.inputText)
         setTimeout(() => { document.getElementById(props.chatWith[0]).click(); }, 10);
-        
+
         userServerUpdateMessage(msg.message);
         contactServerUpdateMessage(msg.message);
+        connection.connection.invoke("Changed", msg.message,props.curUser, props.chatWith[0]);
 
     }
     ////////// update both user and contact server for a new message //////////////
@@ -67,27 +90,26 @@ function ChatScreen(props) {
         const res = await fetch(`${myServer}/api/contacts/${props.chatWith[0]}/messages`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
-            body : JSON.stringify({
-                "content" : content
+            body: JSON.stringify({
+                "content": content
             })
         });
         return res;
-    
-    } 
+
+    }
     async function contactServerUpdateMessage(content) {
         const res = await fetch(`${myServer}/api/transfer`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json',},
-            body : JSON.stringify({
-                "from" : props.curUser,
-                "to" : props.chatWith[0],
-                "content" : content
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify({
+                "from": props.curUser,
+                "to": props.chatWith[0],
+                "content": content
             })
         });
-        console.log(res);
         return res;
-    
-    } 
+
+    }
     ////////////////////////
     function updateScroll() {
         setTimeout(() => {
@@ -98,7 +120,7 @@ function ChatScreen(props) {
 
 
     function showVideo(ref) {
-                    
+
         setTimeout(() => {
             let video = ref.current;
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -124,10 +146,10 @@ function ChatScreen(props) {
                     {chatList}
                     {updateScroll()}
                 </div>
-                <SendModals videoRef={videoRef} videoRef2={videoRef2} currentChat={currentChat} inputText={props.inputText} 
-                            setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj}
-                            userServerUpdateMessage={userServerUpdateMessage} contactServerUpdateMessage={contactServerUpdateMessage}
-                            chatWith={props.chatWith}  />
+                <SendModals videoRef={videoRef} videoRef2={videoRef2} currentChat={currentChat} inputText={props.inputText}
+                    setInputText={props.setInputText} curUser={props.curUser} chatUserObj={chatUserObj}
+                    userServerUpdateMessage={userServerUpdateMessage} contactServerUpdateMessage={contactServerUpdateMessage}
+                    chatWith={props.chatWith} />
 
                 <div className="row message-box p-3">
 

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Contacts from '../database/Contacts';
 import tempUsers from '../database/DataBase';
+import {myServer} from '../server';
 
 
 
@@ -95,7 +96,7 @@ function RegisterForm() {
 
     async function serverRegister(obj) {
         var res = -1;
-        await fetch('https://localhost:44306/api/Register', {
+        await fetch(`${myServer}/api/Register`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(obj)

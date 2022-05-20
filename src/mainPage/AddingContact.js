@@ -52,8 +52,8 @@ function AddingContact(props) {
             return;
         }
         var check = await userServerUpdateAddingContact();
-
-        const contact = { contactName: nameBox.current.value, displayname: displayNameBox.current.value, lastMessage: '', time: new Date(), image: "profile2.png", chat: [] }
+        var chat = []
+        const contact = { contactName: nameBox.current.value, displayname: displayNameBox.current.value, lastMessage: '', time: new Date(), image: "profile2.png", chat: chat }
         obj.userContacts.unshift(contact)
         props.setList(obj.userContacts)
         props.setInputText(!props.inputText)

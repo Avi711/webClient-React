@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import tempUsers from '../database/DataBase';
 import axios from 'axios';
+import {myServer} from '../server';
 
 function LoginForm(props) {
 
@@ -58,7 +59,7 @@ function LoginForm(props) {
 
         var status = 0;
 
-        await axios.post('https://localhost:44306/api/Login', obj)
+        await axios.post(`${myServer}/api/Login`, obj)
             .then(res => {
                 localStorage.setItem('token', res.data);
             })
@@ -72,7 +73,7 @@ function LoginForm(props) {
     }
 
     async function getUser() {
-        const res = await fetch('https://localhost:44306/api/user', {
+        const res = await fetch(`${myServer}/api/user`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
         });
