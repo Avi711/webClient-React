@@ -29,12 +29,16 @@ function MainPage(props) {
     const [chatWith, setChatWith] = useState(0);
 
     const searchBox = useRef(null);
+    const mounted = useRef();
 
     var con = 0;
 
     useEffect(() => {
+        if(!mounted.current) {
         bringContacts();
         MakeConnection();
+        mounted.current = true;
+        }
     }, [])
 
     useEffect(() => {
@@ -55,10 +59,9 @@ function MainPage(props) {
             const currentChat = chatUserObj.chat;
             var time = new Date();
             var msg = { sender: false, message: val, time: time.getTime() }
-            console.log(msg.time - currentChat[currentChat.length - 1].time);
-            if(msg.time - currentChat[currentChat.length - 1].time < 40) {
-                return;
-            }
+            //if(msg.time - currentChat[currentChat.length - 1].time < 40) {
+            //    return;
+            //}
             currentChat.push(msg);
             setInputText(prev => !prev);
         });

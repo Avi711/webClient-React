@@ -54,7 +54,7 @@ function LoginForm(props) {
                 localStorage.setItem('token', res.data);
             })
             .catch(err => {
-                if(err.response.status == 400)
+                if(err.response != null && err.response.status == 400)
                     status = -1;
                 else 
                     status = -2;
