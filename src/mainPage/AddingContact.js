@@ -1,9 +1,7 @@
 import React, { useState, useRef } from 'react'
 import Contacts from '../database/Contacts';
 import tempUsers from '../database/DataBase';
-
-
-const myServer = "https://localhost:44306";
+import connection, {myServer} from '../server';
 
 
 function AddingContact(props) {
@@ -46,25 +44,27 @@ function AddingContact(props) {
 
 
         var check = await contactServerUpdateAddingContact();
-        if(check.status != 200)
+        console.log(check);
+        if(check.status != 201)
         {
             setError("contact-server-error")
             return;
         }
-        var check = await userServerUpdateAddingContact();
-        var chat = []
-        const contact = { contactName: nameBox.current.value, displayname: displayNameBox.current.value, lastMessage: '', time: new Date(), image: "profile2.png", chat: chat }
+        check = await userServerUpdateAddingContact();
+        if(check.status != 201) {
+            setError("user-server-error");
+            return;
+        }
+        const contact = { contactName: nameBox.current.value, displayname: displayNameBox.current.value, lastMessage: '', time: new Date(), image: "profile3.png", chat: [{sender: 'none', message: '', time: new Date()}] }
         obj.userContacts.unshift(contact)
-        props.setList(obj.userContacts)
-        props.setInputText(!props.inputText)
+        props.setList(obj.userContacts);
         document.getElementById("adding-form").reset();
         props.setChatWith([contact.contactName, contact.image, contact.displayname]);
         var slides = document.getElementsByClassName("toggle-contact");
         for (var i = 0; i < slides.length; i++) {
             slides[i].classList.remove("toggle-contact-color");
         }
-        props.setInputText(!props.inputText)
-        setError("success")
+        connection.connection.invoke("ChangedContact", props.curUser, contact.contactName);
         document.getElementById("close-adding-contact").click();
         setError(null)
     }
@@ -80,11 +80,13 @@ function AddingContact(props) {
                 "server" : serverBox.current.value
             })
         });
+        console.log(res);
         return res;
     
     } 
     async function contactServerUpdateAddingContact() {
-        const res = await fetch(`${myServer}/api/invitations`, {
+        var res;
+        res = await fetch(`${serverBox.current.value}/api/invitations`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',},
             body : JSON.stringify({
@@ -92,7 +94,7 @@ function AddingContact(props) {
                 "to" : nameBox.current.value,
                 "server" : myServer
             })
-        });
+        }).catch(p => res = -1);
         return res;
     } 
     ////////////////////////
@@ -109,6 +111,7 @@ function AddingContact(props) {
                         <form onSubmit={addConatct} id="adding-form">
                             <div className="mb-3">
                                 {(error == "contact-server-error") ? (<div className="alert alert-danger">Can't connect to contact server OR contact don't exists in this server</div>) : ""}
+                                {(error == "user-server-error") ? (<div className="alert alert-danger">Can't reach server</div>) : ""}
                                 {(error == "current") ? (<div className="alert alert-danger">You can't add yourself to your contact list</div>) : ""}
                                 {(error == "noUser") ? (<div className="alert alert-danger">There is no user by that name</div>) : ""}
                                 {(error == "exists") ? (<div className="alert alert-danger">Username already exists in your contact list</div>) : ""}

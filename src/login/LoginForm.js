@@ -48,17 +48,7 @@ function LoginForm(props) {
     };
 
     async function serverLogin(obj) {
-        // const res = await fetch('https://localhost:44306/api/Login', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify(obj),
-        // });
-        // const data = await res.json();
-        // console.log(data.token);
-        // return res.status;
-
         var status = 0;
-
         await axios.post(`${myServer}/api/Login`, obj)
             .then(res => {
                 localStorage.setItem('token', res.data);
