@@ -2,30 +2,7 @@ import React, { useState, useRef, useEffect, } from 'react'
 import Message from './Message';
 import SendModals from './SendModals';
 import connection, {myServer} from '../server';
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import $ from 'jquery';
 
-$(function () {
-    // console.log("heyyyyyyyyyyy")
-    // var connection = new signalR.hubConnectionBuilder().writeUrl("/myHub").build();
-
-    // connection.start();
-
-    // console.log("hye");
-
-    // $('#message-input-form').submit(() => {
-    //     //console.log('sending: ' + $('textarea').val());
-    //     console.log("heyyyyyy");
-    //     connection.invoke("Changed", "kkkkk");
-    // });
-
-    // connection.on("ChangedRecived", function (value) {
-    //     console.log('recieved: ' + value);
-    //   //  $('textarea').val(value);
-    // });
-
-
-});
 
 function ChatScreen(props) {
 
@@ -70,12 +47,10 @@ function ChatScreen(props) {
         if (searchBox.current.value == "")
             return;
         var time = new Date();
-        const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        //const curTime = time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
         var msg = { sender: true, message: searchBox.current.value, time: time.getTime() }
         currentChat.push(msg);
         chatUserObj.time = time.getTime();
-        //setMessages(!messages)
-        //<audio id="player" controls></audio>
         document.getElementById("message-input").value = document.getElementById("message-input").defaultValue;
         props.setInputText(!props.inputText)
         setTimeout(() => { document.getElementById(props.chatWith[0]).click(); }, 10);

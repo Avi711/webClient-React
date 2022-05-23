@@ -51,19 +51,21 @@ function MainPage(props) {
         connection.connection.start().then(p => { connection.connection.invoke("MakeConnection", curUser) });
         console.log("connection on");
         connection.connection.on('ChangeRecieved', (val, val2) => {
-            console.log("in the connection");
-            console.log(val);
-            console.log(val2);
             const chatUserObj = obj.userContacts.find(o => o.contactName == val2)
             const currentChat = chatUserObj.chat;
-            console.log(currentChat);
             var time = new Date();
             var msg = { sender: false, message: val, time: time.getTime() }
+            console.log(msg.time - currentChat[currentChat.length - 1].time);
             if(msg.time - currentChat[currentChat.length - 1].time < 40) {
-                console.log("not adding");
                 return;
             }
             currentChat.push(msg);
+            setInputText(prev => !prev);
+        });
+        connection.connection.on('addContact', (val) => {
+            console.log("in add contact");
+            var newContact = { contactName: val, displayname: val, lastMessage: '', time: new Date(), image: "profile3.png", chat: [{sender: 'none', message: '', time: new Date()}] }
+            obj.userContacts.push(newContact);
             setInputText(prev => !prev);
         });
     }

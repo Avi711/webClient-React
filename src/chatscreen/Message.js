@@ -2,6 +2,9 @@ import React from 'react'
 import { timeToString } from '../mainPage/Contact';
 
 function Message(props) {
+    if(props.sender == 'none') {
+        return (<></>)
+    }
     let class_name1 = "col-sm-12 message-main-receiver";
 
     if (props.type == "sender") {
@@ -11,7 +14,6 @@ function Message(props) {
    //     class_name1 = "col-sm-12 message-main-date";
    //     document.getElementById("message-time").remove();
    // }
-
 
     function printDate() {
         return (<div className="row message-body">
