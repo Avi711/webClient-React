@@ -53,7 +53,6 @@ function MainPage(props) {
     async function MakeConnection() {
         connection.connection = new HubConnectionBuilder().withUrl(`${myServer}/myHub`).configureLogging(LogLevel.Information).build();
         connection.connection.start().then(p => { connection.connection.invoke("MakeConnection", curUser) });
-        console.log("connection on");
         connection.connection.on('ChangeRecieved', (val, val2) => {
             const chatUserObj = obj.userContacts.find(o => o.contactName == val2)
             const currentChat = chatUserObj.chat;
@@ -63,12 +62,13 @@ function MainPage(props) {
             //    return;
             //}
             currentChat.push(msg);
+            chatUserObj.time = time.getTime();
             setInputText(prev => !prev);
         });
         connection.connection.on('addContact', (val) => {
-            console.log("in add contact");
             var newContact = { contactName: val, displayname: val, lastMessage: '', time: new Date(), image: "profile3.png", chat: [{sender: 'none', message: '', time: new Date()}] }
             obj.userContacts.push(newContact);
+            setList(obj.userContacts);
             setInputText(prev => !prev);
         });
     }
@@ -79,7 +79,6 @@ function MainPage(props) {
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}`, },
         });
         const data = await res.json();
-        console.log(data);
         setServerContactsList(data);
     }
 
@@ -122,6 +121,7 @@ function MainPage(props) {
 
     List.sort((a, b) => (a.time > b.time) ? -1 : 1);
 
+
     const contactsList = List.map((contact, key) => {
         if (contact.chat.length > 0) return <Contact {...contact} lastMessage={contact.chat.at(-1).message} time={contact.chat.at(-1).time} key={key} setChatWith={setChatWith} />;
         else return <Contact {...contact} key={key} setChatWith={setChatWith} />
@@ -129,7 +129,6 @@ function MainPage(props) {
 
     const search = function () {
         setList(obj.userContacts.filter((contact) => contact.contactName.includes(searchBox.current.value)));
-        console.log(searchBox.current.value);
     }
 
     const searchBar = function () {

@@ -44,7 +44,6 @@ function AddingContact(props) {
 
 
         var check = await contactServerUpdateAddingContact();
-        console.log(check);
         if(check.status != 201)
         {
             setError("contact-server-error")
@@ -80,7 +79,6 @@ function AddingContact(props) {
                 "server" : serverBox.current.value
             })
         });
-        console.log(res);
         return res;
     
     } 
